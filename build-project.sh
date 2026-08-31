@@ -1,0 +1,220 @@
+#!/usr/bin/env bash
+set -e
+
+echo "🚀 Creating Mobile Store Bank directory structure..."
+mkdir -p MobileStoreBank/Data MobileStoreBank/Controllers MobileStoreBank/Views/Shared MobileStoreBank/Views/Home MobileStoreBank/Views/Admin MobileStoreBank/Views/User MobileStoreBank/Views/Products MobileStoreBank/Views/Bank
+
+cd MobileStoreBank
+
+echo "📄 Creating project configuration file..."
+cat << 'EOF' > MobileStoreBank.csproj
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.0" />
+  </ItemGroup>
+</Project>
+EOF
+
+echo "⚙️ Generating Program.cs pipeline..."
+cat << 'EOF' > Program.cs
+using Microsoft.EntityFrameworkCore;
+using MobileStoreBank.Data;
+
+var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+var app = builder.Build();
+if (!app.Environment.IsDevelopment()) { app.UseExceptionHandler("/Home/Error"); }
+
+app.UseStaticFiles();
+app.UseRouting();
+app.UseAuthorization();
+
+app.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}/{id?}");
+
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    DbInitializer.Initialize(context);
+}
+app.Run();
+EOF
+
+echo "🗄️ Generating Database Context & Seed Engine..."
+cat << 'EOF' > Data/ApplicationDbContext.cs
+using Microsoft.EntityFrameworkCore;
+namespace MobileStoreBank.Data {
+    public class User { public int Id { get; set; } public string Username { get; set; } = ""; public string Email { get; set; } = ""; public string PasswordHash { get; set; } = ""; public string Role { get; set; } = "Merchant"; }
+    public class Product { public int Id { get; set; } public string Name { get; set; } = ""; public string SKU { get; set; } = ""; public string Category { get; set; } = "General"; public decimal Price { get; set; } public int Stock { get; set; } }
+    public class Wallet { public int Id { get; set; } public string WalletAddress { get; set; } = Guid.NewGuid().ToString("N"); public string AssetName { get; set; } = "USD"; public decimal Balance { get; set; } public decimal PendingClearance { get; set; } }
+    public class CrmTicket { public int Id { get; set; } public string CustomerName { get; set; } = ""; public string IssueSummary { get; set; } = ""; public string Priority { get; set; } = "Medium"; public string Status { get; set; } = "Open"; }
+    public class ApplicationDbContext : DbContext {
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) {}
+        public DbSet<User> Users => Set<User>();
+        public DbSet<Product> Products => Set<Product>();
+        public DbSet<Wallet> Wallets => Set<Wallet>();
+        public DbSet<CrmTicket> CrmTickets => Set<CrmTicket>();
+        protected override void OnModelCreating(ModelBuilder mb) {
+            mb.Entity<Product>().Property(p => p.Price).HasConversion<double>();
+            mb.Entity<Wallet>().Property(w => w.Balance).HasConversion<double>();
+        }
+    }
+    public static class DbInitializer {
+        public static void Initialize(ApplicationDbContext context) {
+            context.Database.EnsureCreated();
+            if (!context.Users.Any()) {
+                context.Users.Add(new User { Username = "admin", Email = "admin@storebank.com", PasswordHash = "admin123", Role = "Admin" });
+            }
+            if (!context.Products.Any()) {
+                context.Products.Add(new Product { Name = "iPhone 15 Pro Max", SKU = "IPH15", Category = "Devices", Price = 1199.99m, Stock = 50 });
+            }
+            if (!context.Wallets.Any()) {
+                context.Wallets.Add(new Wallet { AssetName = "USD Core Pool", Balance = 50000.00m });
+            }
+            context.SaveChanges();
+        }
+    }
+}
+EOF
+
+echo "🎮 Generating Controllers Layer..."
+cat << 'EOF' > Controllers/HomeController.cs
+using Microsoft.AspNetCore.Mvc;
+namespace MobileStoreBank.Controllers { public class HomeController : Controller { public IActionResult Index() => View(); public IActionResult About() => View(); public IActionResult Product() => View(); public IActionResult Bank() => View(); } }
+EOF
+
+cat << 'EOF' > Controllers/AdminController.cs
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using MobileStoreBank.Data;
+namespace MobileStoreBank.Controllers {
+    public class AdminController : Controller {
+        private readonly ApplicationDbContext _c;
+        public AdminController(ApplicationDbContext c) => _c = c;
+        public async Task<IActionResult> Index() { ViewBag.TotalLiquidity = await _c.Wallets.SumAsync(w => w.Balance); return View(); }
+        public async Task<IActionResult> UserList() => View(await _c.Users.ToListAsync());
+        public async Task<IActionResult> ProdList() => View(await _c.Products.ToListAsync());
+        public async Task<IActionResult> CRM() => View(await _c.CrmTickets.ToListAsync());
+    }
+}
+EOF
+
+cat << 'EOF' > Controllers/UserController.cs
+using Microsoft.AspNetCore.Mvc;
+namespace MobileStoreBank.Controllers { public class UserController : Controller { public IActionResult Index() => View(); public IActionResult Login() => View(); public IActionResult SignUp() => View(); } }
+EOF
+
+cat << 'EOF' > Controllers/ProductsController.cs
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using MobileStoreBank.Data;
+namespace MobileStoreBank.Controllers {
+    public class ProductsController : Controller {
+        private readonly ApplicationDbContext _c;
+        public ProductsController(ApplicationDbContext c) => _c = c;
+        public async Task<IActionResult> Index() => View(await _c.Products.ToListAsync());
+        public IActionResult CRUD() => View();
+        public IActionResult Supply() => View();
+        public IActionResult Category() => View();
+    }
+}
+EOF
+
+cat << 'EOF' > Controllers/BankController.cs
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using MobileStoreBank.Data;
+namespace MobileStoreBank.Controllers {
+    public class BankController : Controller {
+        private readonly ApplicationDbContext _c;
+        public BankController(ApplicationDbContext c) => _c = c;
+        public async Task<IActionResult> Index() => View(await _c.Wallets.ToListAsync());
+        public async Task<IActionResult> Wallet() => View(await _c.Wallets.ToListAsync());
+        public IActionResult History() => View();
+        public IActionResult Account() => View();
+    }
+}
+EOF
+
+echo "🎨 Generating Razor Layout Elements..."
+cat << 'EOF' > Views/_ViewImports.cshtml
+@using MobileStoreBank
+@using MobileStoreBank.Data
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+EOF
+
+cat << 'EOF' > Views/_ViewStart.cshtml
+@{ Layout = "_Layout.cshtml"; }
+EOF
+
+cat << 'EOF' > Views/Shared/_Layout.cshtml
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-slate-950 text-slate-100">
+<head>
+    <meta charset="utf-8" />
+    <title>Mobile Store Bank</title>
+    <script src="https://tailwindcss.com"></script>
+</head>
+<body class="min-h-full flex flex-col bg-slate-950 text-slate-100 antialiased">
+    <header class="sticky top-0 z-50 w-full border-b border-white/10 bg-slate-900/60 backdrop-blur-md h-16 flex items-center justify-between px-8">
+        <a href="/" class="text-xl font-bold">MobileStore<span class="text-indigo-400">Bank</span></a>
+        <nav class="flex gap-6 text-sm font-medium text-slate-400">
+            <a href="/Home/Index" class="hover:text-white">Dashboard</a>
+            <a href="/Bank/Wallet" class="hover:text-white">Wallets</a>
+            <a href="/Products/Index" class="hover:text-white">Products</a>
+            <a href="/Admin/Index" class="hover:text-white">Admin</a>
+        </nav>
+    </header>
+    <main class="flex-grow w-full max-w-7xl mx-auto px-8 py-10">
+        <div class="bg-white/[0.02] border border-white/10 backdrop-blur-lg rounded-2xl p-8 shadow-2xl">
+            @RenderBody()
+        </div>
+    </main>
+    <footer class="border-t border-white/10 bg-slate-950/80 p-8 text-center text-xs text-slate-500">
+        &copy; Mobile Store Bank. Running over cleartext HTTP.
+    </footer>
+</body>
+</html>
+EOF
+
+echo "📝 Populating key view pages..."
+cat << 'EOF' > Views/Home/Index.cshtml
+<div class="text-center py-10 space-y-4">
+    <h1 class="text-4xl font-black">Liquidity Infrastructure</h1>
+    <p class="text-slate-400 text-sm max-w-md mx-auto">High-density banking and inventory orchestration running entirely on .NET 10 over HTTP channels.</p>
+</div>
+EOF
+
+cat << 'EOF' > Views/Bank/Wallet.cshtml
+@model IEnumerable<MobileStoreBank.Data.Wallet>
+<div class="space-y-6">
+    <h2 class="text-2xl font-bold">Active SaaS Wallets</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        @foreach(var w in Model) {
+            <div class="bg-white/[0.04] border border-white/10 p-6 rounded-xl">
+                <div class="text-xs text-slate-400 uppercase">@w.AssetName</div>
+                <div class="text-2xl font-mono font-bold mt-2">$@w.Balance.ToString("N2")</div>
+            </div>
+        }
+    </div>
+</div>
+EOF
+
+cat << 'EOF' > appsettings.json
+{
+  "Logging": { "LogLevel": { "Default": "Information", "Microsoft.AspNetCore": "Warning" } },
+  "AllowedHosts": "*",
+  "ConnectionStrings": { "DefaultConnection": "Data Source=MobileStoreBank.db" }
+}
+EOF
+
+# Placeholder generation for missing files to avoid routing exceptions

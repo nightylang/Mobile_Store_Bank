@@ -1,0 +1,21 @@
+# .NET Build and Compilation Outputs
+[Dd]ebug/
+[Rr]elease/
+bin/
+obj/
+
+# Database Files
+*.db
+*.db-journal
+*.db-shm
+*.db-wal
+
+# Visual Studio / Rider User Settings
+.vs/
+.idea/
+*.user
+*.suo
+
+# Operating System Files
+.DS_Store
+Thumbs.db

@@ -1,0 +1,51 @@
+# =========================================================================
+# MOBILE STORE BANK - CONTINUOUS DEPLOYMENT DISPATCH ENGINE
+# CD PIPELINE TARGET ENGINE: GITHUB ACTIONS HOST PIPELINE RUNNER
+# =========================================================================
+
+name: Mobile Store Bank CD Engine
+
+on:
+  # Triggers deployment automatically when the main CI build finishes successfully
+  workflow_run:
+    workflows: ["Mobile Store Bank CI Engine"]
+    types:
+      - completed
+    branches: [ "main" ]
+
+jobs:
+  deploy-production:
+    name: Build Container Image & Deploy to HTTP Live Target Node
+    runs-on: ubuntu-latest
+    # Execute deployment strictly if the upstream verification CI suite succeeded
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+
+    steps:
+    # 1. CHECKOUT CURRENT REPOSITORY COMPILATION MATRIX
+    - name: Checkout Production Infrastructure Bundle
+      uses: actions/checkout@v4
+
+    # 2. INITIALIZE DOCKER ENVIRONMENT SANDBOXING BUILDERS
+    - name: Set up Docker Buildx Engines
+      uses: docker/setup-buildx-action@v3
+
+    # 3. AUTHENTICATE TO PRODUCTION TARGET SERVER
+    # (Uses encrypted repository secrets to protect keys over plaintext loops)
+    - name: Configure SSH Infrastructure Authentication Handshake
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.PROD_SERVER_IP }}
+        username: ${{ secrets.PROD_SERVER_USER }}
+        key: ${{ secrets.PROD_SERVER_SSH_KEY }}
+        script: |
+          echo "🌐 Connected to local cleartext HTTP production node machine..."
+          cd /apps/MobileStoreBank
+          
+          echo "📦 Fetching latest verified repository artifacts..."
+          git pull origin main
+          
+          echo "🐳 Rebuilding multi-stage isolated container environment networks..."
+          docker compose down
+          docker compose up --build -d
+          
+          echo "✅ CD execution block successfully provisioned on target host!"

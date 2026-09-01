@@ -48,4 +48,16 @@ namespace MobileStoreBank.Models
         public string Priority { get; set; } = "Medium"; // Low, Medium, High, Critical
         public string Status { get; set; } = "Open";     // Open, In-Progress, Closed
     }
+    // Models/StoreBankModels.cs modification snippet
+public class TransactionRecord
+{
+    public int Id { get; set; }
+    public string ReferenceNumber { get; set; } = string.Empty;
+    public string SourceWallet { get; set; } = string.Empty;
+    public string DestinationWallet { get; set; } = string.Empty;
+    public decimal Amount { get; set; }
+    public string Status { get; set; } = "Completed";
+    public DateTime Timestamp { get; set; } = DateTime.UtcNow;
+    
+    public string IntegrityHashSignature { get; set; } = string.Empty;
 }

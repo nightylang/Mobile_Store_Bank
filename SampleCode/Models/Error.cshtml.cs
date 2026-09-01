@@ -1,6 +1,6 @@
 using System.Diagnostics;
 
-namespace MobileStoreBank.Models
+namespace StoreMobile.Models
 {
     public class ErrorViewModel
     {

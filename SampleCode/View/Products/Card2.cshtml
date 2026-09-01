@@ -1,0 +1,44 @@
+@model IEnumerable<MobileStoreBank.Models.Product>
+
+@section HeadStyles {
+    <link rel="stylesheet" href="~/css/product-card.css" />
+}
+
+<div class="msb-card-grid-wrapper">
+    <div class="msb-ambient-glow-left"></div>
+    <div class="msb-ambient-glow-right"></div>
+
+    @foreach (var row in Model) {
+        <div class="msb-product-card">
+            <div class="msb-asset-image-frame">
+                <span class="msb-floating-sku-tag">@row.SKU</span>
+                <div class="msb-hardware-node-vector">
+                    <div class="msb-vector-screen"></div>
+                    <div class="msb-vector-badge">POS</div>
+                    <div class="msb-vector-base"><div class="msb-vector-pill"></div><div class="msb-vector-led"></div></div>
+                </div>
+                <button class="msb-floating-favorite-btn">
+                    <svg class="msb-ui-icon-vector" viewBox="0 0 24 24"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                </button>
+            </div>
+
+            <div class="msb-card-content-segment">
+                <div class="msb-card-header-row">
+                    <h4 class="msb-item-title">@row.Name</h4>
+                    <div class="msb-item-price">$@row.Price.ToString("N2")</div>
+                </div>
+                <p class="msb-item-subtitle">@row.Category</p>
+                <p class="msb-item-description">Active merchant node asset provisioned via SQLite database persistence context lines.</p>
+            </div>
+
+            <div class="msb-card-actions-panel">
+                <button class="msb-action-cart-trigger">
+                    <svg class="msb-ui-icon-vector" viewBox="0 0 24 24"><path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+                </button>
+                <button class="msb-action-buy-trigger">
+                    <span>Instantiate Order</span>
+                </button>
+            </div>
+        </div>
+    }
+</div>

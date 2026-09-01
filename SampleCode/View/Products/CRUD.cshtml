@@ -1,0 +1,34 @@
+@model MobileStoreBank.Data.Product
+@{ ViewData["Title"] = "Provision Asset"; }
+<div class="max-w-xl mx-auto space-y-6">
+    <h3 class="text-lg font-bold text-white">Catalog Entity Creator Framework</h3>
+    <form method="post" action="/Products/SaveProduct" class="space-y-4 bg-white/[0.01] border border-white/5 p-6 rounded-xl">
+        <div class="grid grid-cols-2 gap-4">
+            <div>
+                <label class="block text-2xs font-bold uppercase tracking-wider text-slate-400 mb-1">Asset Reference Label</label>
+                <input type="text" name="Name" required class="w-full bg-black/40 border border-white/10 p-2 rounded text-xs text-white" placeholder="e.g., Ultra POS Terminal Node" />
+            </div>
+            <div>
+                <label class="block text-2xs font-bold uppercase tracking-wider text-slate-400 mb-1">Unique Identifier SKU</label>
+                <input type="text" name="SKU" required class="w-full bg-black/40 border border-white/10 p-2 rounded text-xs text-white" placeholder="POS-ULT-X1" />
+            </div>
+        </div>
+        <div class="grid grid-cols-3 gap-4">
+            <div>
+                <label class="block text-2xs font-bold uppercase tracking-wider text-slate-400 mb-1">Structural Category</label>
+                <input type="text" name="Category" required class="w-full bg-black/40 border border-white/10 p-2 rounded text-xs text-white" placeholder="Hardware" />
+            </div>
+            <div>
+                <label class="block text-2xs font-bold uppercase tracking-wider text-slate-400 mb-1">Base Price Point</label>
+                <input type="number" step="0.01" name="Price" required class="w-full bg-black/40 border border-white/10 p-2 rounded text-xs text-white" placeholder="299.99" />
+            </div>
+            <div>
+                <label class="block text-2xs font-bold uppercase tracking-wider text-slate-400 mb-1">Initial Stock Supply</label>
+                <input type="number" name="Stock" required class="w-full bg-black/40 border border-white/10 p-2 rounded text-xs text-white" placeholder="50" />
+            </div>
+        </div>
+        <button type="submit" class="w-full p-2.5 bg-indigo-600 hover:bg-indigo-500 rounded text-xs font-bold text-white transition">
+            Commit Dynamic Record down to Database Engine Context
+        </button>
+    </form>
+</div>

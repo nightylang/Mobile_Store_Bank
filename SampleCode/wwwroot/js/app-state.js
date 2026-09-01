@@ -93,4 +93,82 @@ window.InitializeLedgerPollingLoop = function(pollingIntervalMs = 4000) {
     executePollCycle();
     setInterval(executePollCycle, pollingIntervalMs);
 };
-            
+
+/**
+ * Mobile Store Bank - Asynchronous Order Purchase Pipeline Binder
+ * Binds product card purchase actions to the backend transaction ledger
+ */
+window.InitializeProductActionListeners = function() {
+    console.log("🛒 Product purchase event listener matrices mounted...");
+
+    // Catch events at the document level to preserve functionality during dynamic re-renders
+    document.body.addEventListener('click', async function(event) {
+        
+        // Target button click specifically by identifying our custom semantic trigger class
+        const buyButton = event.target.closest('.msb-action-buy-trigger');
+        if (!buyButton) return;
+
+        event.preventDefault();
+
+        // Traverse layout nodes upward to parse data cells from the parent container card
+        const productCard = buyButton.closest('.msb-product-card');
+        if (!productCard) return;
+
+        // Parse runtime model properties injected inside data elements or text content
+        const priceString = productCard.querySelector('.msb-item-price').textContent;
+        const assetPoolLabel = productCard.querySelector('.msb-item-subtitle').textContent;
+        
+        // Extract raw floating-point numeric value out of the price tag text cell string
+        const parsedAmount = parseFloat(priceString.replace(/[^0-9.-]+/g, ""));
+
+        // Visual UX Feedback: Transition button state during network transit
+        const primaryTextElement = buyButton.querySelector('span');
+        const fallbackTextCache = primaryTextElement ? primaryTextElement.textContent : "Instantiate Order";
+        if (primaryTextElement) primaryTextElement.textContent = "Processing Settle...";
+        buyButton.disabled = true;
+        buyButton.style.opacity = "0.5";
+
+        try {
+            // Dispatch AJAX cleartext fetch package to your dedicated REST API controller layer
+            const response = await fetch('/api/ledger/settle', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-POS-Terminal-ID': 'WEB-INTERFACE-NODE',
+                    'X-POS-Security-Token': 'POS-SECURE-KEY-HASH-V2'
+                },
+                body: JSON.stringify({
+                    amount: parsedAmount,
+                    targetAssetPool: "USD Core Ledger Pool" // Standard default settling lane
+                })
+            });
+
+            if (!response.ok) {
+                const errData = await response.json();
+                throw new Error(errData.Error || `Server side execution error: ${response.status}`);
+            }
+
+            const result = await response.json();
+            console.log("✅ Order commitment ledger verification success:", result);
+
+            // Dynamically push state value adjustments over the global Proxy singleton instance
+            // This instantly refreshes and flashes your glass navigation balance components!
+            if (window.StoreBankState) {
+                window.StoreBankState.usdPoolBalance = result.newInternalBalance;
+            }
+
+            // Notification Feedback Popup placeholder trigger
+            alert(`Transaction Settled Successfully!\nReference: ${result.transactionRef}`);
+
+        } catch (error) {
+            console.error("❌ Order Processing Pipeline Aborted:", error.message);
+            alert(`Settlement Anomaly: ${error.message}`);
+        } finally {
+            // Restore visual layout control states
+            if (primaryTextElement) primaryTextElement.textContent = fallbackTextCache;
+            buyButton.disabled = false;
+            buyButton.style.opacity = "1";
+        }
+    });
+};
+

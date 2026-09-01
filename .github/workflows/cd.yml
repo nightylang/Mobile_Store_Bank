@@ -1,12 +1,11 @@
 # =========================================================================
-# MOBILE STORE BANK - CONTINUOUS DEPLOYMENT DISPATCH ENGINE
-# CD PIPELINE TARGET ENGINE: GITHUB ACTIONS HOST PIPELINE RUNNER
+# MOBILE STORE BANK - EXTENDED DEPLOYMENT ENGINE (ATTENDANCE MODULE UPDATE)
+# PIPELINE SERVICE: GITHUB ACTIONS MULTI-STAGE CONTINUOUS DELIVERY RUNNER
 # =========================================================================
 
 name: Mobile Store Bank CD Engine
 
 on:
-  # Triggers deployment automatically when the main CI build finishes successfully
   workflow_run:
     workflows: ["Mobile Store Bank CI Engine"]
     types:
@@ -17,20 +16,16 @@ jobs:
   deploy-production:
     name: Build Container Image & Deploy to HTTP Live Target Node
     runs-on: ubuntu-latest
-    # Execute deployment strictly if the upstream verification CI suite succeeded
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
 
     steps:
-    # 1. CHECKOUT CURRENT REPOSITORY COMPILATION MATRIX
     - name: Checkout Production Infrastructure Bundle
       uses: actions/checkout@v4
 
-    # 2. INITIALIZE DOCKER ENVIRONMENT SANDBOXING BUILDERS
     - name: Set up Docker Buildx Engines
       uses: docker/setup-buildx-action@v3
 
-    # 3. AUTHENTICATE TO PRODUCTION TARGET SERVER
-    # (Uses encrypted repository secrets to protect keys over plaintext loops)
+    # 1. TRANSMIT DISPATCH ACTIONS TO TARGET DEPLOYMENT HOST MACHINE
     - name: Configure SSH Infrastructure Authentication Handshake
       uses: appleboy/ssh-action@v1.0.3
       with:
@@ -41,11 +36,19 @@ jobs:
           echo "🌐 Connected to local cleartext HTTP production node machine..."
           cd /apps/MobileStoreBank
           
-          echo "📦 Fetching latest verified repository artifacts..."
+          echo "📦 Fetching latest verified repository artifacts (Attendance Core Appends)..."
           git pull origin main
           
+          # 2. RUN SYSTEM DATABASE SCHEMA SCRIPTS FOR NEW ATTENDANCE TABLES
+          # Applies the structured attendance schema changes to MS SQL Server
+          echo "🗄️ Executing structural SQL migrations..."
+          docker exec msb_production_sql_node /opt/mssql-tools/bin/sqlcmd \
+            -S localhost -U sa -P "SeniorDevPass_10.0_GA!" \
+            -Q "IF OBJECT_ID('dbo.AttendanceRecords', 'U') IS NULL CREATE TABLE dbo.AttendanceRecords (Id BIGINT IDENTITY(1,1) NOT NULL, UserIdentity NVARCHAR(150) NOT NULL, Timestamp DATETIME2(7) NOT NULL DEFAULT GETUTCDATE(), ActionType NVARCHAR(50) NOT NULL, TerminalNode NVARCHAR(100) NOT NULL DEFAULT 'PYTHON-VISION-NODE', CONSTRAINT PK_AttendanceRecords PRIMARY KEY CLUSTERED (Id));"
+          
           echo "🐳 Rebuilding multi-stage isolated container environment networks..."
-          docker compose down
+          docker compose down --remove-orphans
           docker compose up --build -d
           
           echo "✅ CD execution block successfully provisioned on target host!"
+          

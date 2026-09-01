@@ -1,0 +1,33 @@
+@model IEnumerable<MobileStoreBank.Models.AttendanceRecord>
+@section HeadStyles { <link rel="stylesheet" href="~/css/product-card.css" /> }
+
+<div class="msb-product-card" style="max-w-none; width: 100%;">
+    <div class="msb-card-header-row" style="border-bottom: 1px solid var(--msb-glass-border); padding-bottom: 12px; margin-bottom: 16px;">
+        <div>
+            <h3 class="msb-item-title" style="font-size: 22px;">Public Attendance Operational Log</h3>
+            <p class="msb-item-subtitle">Real-time status analysis of scanning terminal inputs</p>
+        </div>
+        <div style="display: flex; gap: 8px;">
+            <a href="/Attendance/Scan" class="msb-action-buy-trigger" style="padding: 10px 16px; text-decoration: none; font-size: 11px;">Launch Camera Node Scanner</a>
+        </div>
+    </div>
+
+    <!-- Tracking History Lists Grid -->
+    <div style="display: flex; flex-direction: column; gap: 10px; font-family: monospace; font-size: 12px;">
+        @foreach (var log in Model)
+        {
+            <div style="padding: 12px; background: rgba(0,0,0,0.3); border: 1px solid var(--msb-glass-border); border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <span style="color: var(--msb-text-main); font-weight: bold; font-size: 14px; font-family: sans-serif;">@log.UserIdentity</span>
+                    <span style="color: var(--msb-text-muted); font-size: 10px; display: block; margin-top: 2px;">Device Node Source: @log.TerminalNode</span>
+                </div>
+                <div style="text-align: right;">
+                    <span style="padding: 2px 8px; border-radius: 4px; font-weight: bold; font-family: sans-serif; font-size: 11px; @(log.ActionType == "CheckIn" ? "background: rgba(52, 211, 153, 0.1); color: #34d399;" : "background: rgba(239, 68, 68, 0.1); color: #f87171;")">
+                        @log.ActionType
+                    </span>
+                    <span style="color: var(--msb-text-muted); font-size: 11px; display: block; margin-top: 4px;">@log.Timestamp.ToString("yyyy-MM-dd HH:mm:ss") UTC</span>
+                </div>
+            </div>
+        }
+    </div>
+</div>

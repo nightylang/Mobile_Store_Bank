@@ -11,7 +11,7 @@ An enterprise-grade, high-density financial asset node and inventory lifecycle m
 <a href="https://github.com/nightylang"><img title="Redis" src="https://img.shields.io/badge/Redis-8.10-red?style=for-the-badge&logo=Redis"></a>
 <a href="https://github.com/nightylang"><img title="Python" src="https://img.shields.io/badge/Python-3.14-yellow?style=for-the-badge&logo=Python"></a>
 <a href="https://github.com/nightylang"><img title="JavaScript" src="https://img.shields.io/badge/JavaScript-ES16-yellow?style=for-the-badge&logo=JavaScript"></a>
-<a href="https://github.com/nightylang"><img title="Tailwindcss" src="https://img.shields.io/badge/Tailwind css-4.0-bluesky?style=for-the-badge&logo=Tailwindcss"></a>
+<a href="https://github.com/nightylang"><img title="Tailwindcss" src="https://img.shields.io/badge/Tailwind css-4.0-blue?style=for-the-badge&logo=Tailwindcss"></a>
 
 ---
 

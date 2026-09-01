@@ -45,6 +45,31 @@
 
     </div>
 </div>
+<!-- Real-Time Pure SVG Graph Tracker Component Widget Container -->
+<div class="msb-graph-glass-panel">
+    <div class="msb-card-header-row">
+        <div>
+            <h4 class="msb-item-title">Real-Time Platform Settlement Surge Velocity</h4>
+            <p class="msb-item-subtitle" style="font-size: 10px; margin-top: 2px;">Asset Lane Tracker: USD Core Ledger Stream</p>
+        </div>
+        <div class="msb-item-price" style="font-size: 11px; font-weight: bold; font-family: sans-serif; letter-spacing: 0.5px; color: var(--msb-text-muted);">
+            Live Feed: 4000ms Poll Cycles
+        </div>
+    </div>
+
+    <!-- The SVG Drawing Plane Wrapper -->
+    <div class="msb-svg-viewport-wrapper">
+        <svg id="msb-telemetry-svg" xmlns="http://w3.org">
+            <!-- Background horizontal grid structural guidelines -->
+            <line x1="0" y1="35" x2="100%" y2="35" stroke="rgba(255,255,255,0.02)" stroke-width="1" />
+            <line x1="0" y1="70" x2="100%" y2="70" stroke="rgba(255,255,255,0.02)" stroke-width="1" />
+            <line x1="0" y1="105" x2="100%" y2="105" stroke="rgba(255,255,255,0.02)" stroke-width="1" />
+            
+            <!-- Dynamic Vector Path Element Mapped via State Engine Script -->
+            <polyline id="msb-graph-polyline" points="10,70 70,70 130,70 190,70 250,70 310,70" />
+        </svg>
+    </div>
+</div>
 
 @section Scripts {
     <!-- Mount State Script and Boot Polling Operations -->
@@ -53,6 +78,9 @@
         document.addEventListener("DOMContentLoaded", function() {
             // Boot background loop polling every 4 seconds explicitly
             InitializeLedgerPollingLoop(4000);
+            if (typeof RenderDashboardGraphTelemetry === "function") {
+                RenderDashboardGraphTelemetry();
+            }
         });
     </script>
 }

@@ -1,12 +1,12 @@
 # =========================================================================
-# MOBILE STORE BANK - DEFINITIVE FULL INFRASTRUCTURE ORCHESTRATOR
-# ARCHITECTURE: .NET 10.0 HTTP + MS SQL SERVER 2022 CONTAINER NETWORK
+# MOBILE STORE BANK - COMPREHENSIVE PRODUCTION ARCHITECTURE METRICS
+# INFRASTRUCTURE CORE: .NET 10 HTTP + MS SQL SERVER 2022 + REDIS STACK MESH
 # =========================================================================
 
 version: '3.8'
 
 services:
-  # LAYER 1: ENTERPRISE DATA PERSISTENCE LAYER (SQL SERVER)
+  # LAYER 1: ENTERPRISE DATABASE PERSISTENCE INSTANCE (SQL SERVER)
   msb-sql-engine:
     image: ://microsoft.com
     container_name: msb_production_sql_node
@@ -25,7 +25,20 @@ services:
       timeout: 5s
       retries: 5
 
-  # LAYER 2: HIGH-DENSITY WEB RUNTIME ENGINE (MVC APPLICATION)
+  # LAYER 2: HIGH-VELOCITY IN-MEMORY DATA CACHING CORE (REDIS)
+  msb-redis-cache:
+    image: redis:7.2-alpine
+    container_name: msb_production_redis_node
+    ports:
+      - "6379:6379"
+    restart: always
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 3
+
+  # LAYER 3: CORE PRODUCT APPLICATIVE DEPLOYMENT COMPONENT (.NET 10 WEB)
   msb-web-platform:
     image: mobilestorebank-web:latest
     container_name: msb_production_http_node
@@ -33,18 +46,21 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "5000:5000" # Explicit cleartext port mapping hook
+      - "5000:5000"
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
-      - ASPNETCORE_URLS=http://+:5000 # Enforce pure cleartext HTTP routing limits
+      - ASPNETCORE_URLS=http://+:5000
       - ConnectionStrings__DefaultConnection=Server=msb-sql-engine;Database=MobileStoreBankDb;User Id=sa;Password=SeniorDevPass_10.0_GA!;TrustServerCertificate=True;MultipleActiveResultSets=True;
+      - ConnectionStrings__RedisCacheConnection=msb-redis-cache:6379
     restart: always
     depends_on:
       msb-sql-engine:
         condition: service_healthy
+      msb-redis-cache:
+        condition: service_healthy
 
 # =========================================================================
-# SECURE STORAGE BOUNDARY VOLUMES
+# SYSTEM VOLUMES ARRAY DEF
 # =========================================================================
 volumes:
   msb-sql-data:

@@ -1,0 +1,46 @@
+@model IEnumerable<MobileStoreBank.Models.User>
+@{
+    ViewData["Title"] = "Identity Node Registry";
+}
+
+<div class="space-y-6">
+    <div class="flex justify-between items-center border-b border-white/10 pb-4">
+        <div>
+            <h3 class="text-xl font-black text-white tracking-tight">System Node Operator Directory</h3>
+            <p class="text-xs text-slate-400 font-mono">Query Target: Context.Users.AsNoTracking()</p>
+        </div>
+        <span class="px-3 py-1 bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 text-xs font-mono rounded-full">
+            Total Enrolled: @Model.Count()
+        </span>
+    </div>
+
+    <div class="overflow-x-auto border border-white/10 rounded-xl bg-black/20">
+        <table class="w-full text-left text-xs border-collapse">
+            <thead class="bg-white/5 border-b border-white/10 text-slate-300 font-semibold tracking-wider uppercase text-[10px]">
+                <tr>
+                    <th class="p-4">Entity Key ID</th>
+                    <th class="p-4">Ident Token Label</th>
+                    <th class="p-4">Network Communication Box</th>
+                    <th class="p-4">Access Role Rights Group</th>
+                    <th class="p-4">Provisioned Timestamp</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-white/5 text-slate-400 font-mono">
+                @foreach (var user in Model)
+                {
+                    <tr class="hover:bg-white/[0.02] transition-colors">
+                        <td class="p-4 text-slate-500">@user.Id</td>
+                        <td class="p-4 text-white font-sans font-medium text-sm">@user.Username</td>
+                        <td class="p-4 font-sans text-slate-300">@user.Email</td>
+                        <td class="p-4">
+                            <span class="px-2 py-0.5 text-[11px] @(user.Role == "Admin" ? "bg-red-500/10 text-red-400 border-red-500/20" : "bg-indigo-500/10 text-indigo-400 border-indigo-500/20") border rounded font-sans font-medium">
+                                @user.Role
+                            </span>
+                        </td>
+                        <td class="p-4 text-slate-500">@user.CreatedAt.ToString("yyyy-MM-dd HH:mm") UTC</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

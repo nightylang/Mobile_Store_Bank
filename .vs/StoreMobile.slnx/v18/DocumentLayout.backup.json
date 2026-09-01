@@ -1,0 +1,207 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\NEC\\Desktop\\StoreMobile\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{9AEED16B-8F75-4C4A-8E73-2A70A7A99465}|StoreMobile\\StoreMobile.csproj|c:\\users\\nec\\desktop\\storemobile\\storemobile\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9AEED16B-8F75-4C4A-8E73-2A70A7A99465}|StoreMobile\\StoreMobile.csproj|solutionrelative:storemobile\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9AEED16B-8F75-4C4A-8E73-2A70A7A99465}|StoreMobile\\StoreMobile.csproj|c:\\users\\nec\\desktop\\storemobile\\storemobile\\views\\home\\about.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9AEED16B-8F75-4C4A-8E73-2A70A7A99465}|StoreMobile\\StoreMobile.csproj|solutionrelative:storemobile\\views\\home\\about.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9AEED16B-8F75-4C4A-8E73-2A70A7A99465}|StoreMobile\\StoreMobile.csproj|c:\\users\\nec\\desktop\\storemobile\\storemobile\\models\\mobileitems.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9AEED16B-8F75-4C4A-8E73-2A70A7A99465}|StoreMobile\\StoreMobile.csproj|solutionrelative:storemobile\\models\\mobileitems.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9AEED16B-8F75-4C4A-8E73-2A70A7A99465}|StoreMobile\\StoreMobile.csproj|c:\\users\\nec\\desktop\\storemobile\\storemobile\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9AEED16B-8F75-4C4A-8E73-2A70A7A99465}|StoreMobile\\StoreMobile.csproj|solutionrelative:storemobile\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9AEED16B-8F75-4C4A-8E73-2A70A7A99465}|StoreMobile\\StoreMobile.csproj|c:\\users\\nec\\desktop\\storemobile\\storemobile\\views\\product\\prodcate.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9AEED16B-8F75-4C4A-8E73-2A70A7A99465}|StoreMobile\\StoreMobile.csproj|solutionrelative:storemobile\\views\\product\\prodcate.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9AEED16B-8F75-4C4A-8E73-2A70A7A99465}|StoreMobile\\StoreMobile.csproj|c:\\users\\nec\\desktop\\storemobile\\storemobile\\views\\product\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9AEED16B-8F75-4C4A-8E73-2A70A7A99465}|StoreMobile\\StoreMobile.csproj|solutionrelative:storemobile\\views\\product\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9AEED16B-8F75-4C4A-8E73-2A70A7A99465}|StoreMobile\\StoreMobile.csproj|c:\\users\\nec\\desktop\\storemobile\\storemobile\\views\\user\\signup.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9AEED16B-8F75-4C4A-8E73-2A70A7A99465}|StoreMobile\\StoreMobile.csproj|solutionrelative:storemobile\\views\\user\\signup.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9AEED16B-8F75-4C4A-8E73-2A70A7A99465}|StoreMobile\\StoreMobile.csproj|c:\\users\\nec\\desktop\\storemobile\\storemobile\\views\\user\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9AEED16B-8F75-4C4A-8E73-2A70A7A99465}|StoreMobile\\StoreMobile.csproj|solutionrelative:storemobile\\views\\user\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9AEED16B-8F75-4C4A-8E73-2A70A7A99465}|StoreMobile\\StoreMobile.csproj|c:\\users\\nec\\desktop\\storemobile\\storemobile\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9AEED16B-8F75-4C4A-8E73-2A70A7A99465}|StoreMobile\\StoreMobile.csproj|solutionrelative:storemobile\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9AEED16B-8F75-4C4A-8E73-2A70A7A99465}|StoreMobile\\StoreMobile.csproj|c:\\users\\nec\\desktop\\storemobile\\storemobile\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9AEED16B-8F75-4C4A-8E73-2A70A7A99465}|StoreMobile\\StoreMobile.csproj|solutionrelative:storemobile\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9AEED16B-8F75-4C4A-8E73-2A70A7A99465}|StoreMobile\\StoreMobile.csproj|c:\\users\\nec\\desktop\\storemobile\\storemobile\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9AEED16B-8F75-4C4A-8E73-2A70A7A99465}|StoreMobile\\StoreMobile.csproj|solutionrelative:storemobile\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\NEC\\Desktop\\StoreMobile\\StoreMobile\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "StoreMobile\\Views\\Home\\Index.cshtml",
+              "ToolTip": "C:\\Users\\NEC\\Desktop\\StoreMobile\\StoreMobile\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "StoreMobile\\Views\\Home\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-08-30T06:09:40.844Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "MobileItems.cs",
+              "DocumentMoniker": "C:\\Users\\NEC\\Desktop\\StoreMobile\\StoreMobile\\Models\\MobileItems.cs",
+              "RelativeDocumentMoniker": "StoreMobile\\Models\\MobileItems.cs",
+              "ToolTip": "C:\\Users\\NEC\\Desktop\\StoreMobile\\StoreMobile\\Models\\MobileItems.cs",
+              "RelativeToolTip": "StoreMobile\\Models\\MobileItems.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-30T06:09:31.113Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ProdCate.cshtml",
+              "DocumentMoniker": "C:\\Users\\NEC\\Desktop\\StoreMobile\\StoreMobile\\Views\\Product\\ProdCate.cshtml",
+              "RelativeDocumentMoniker": "StoreMobile\\Views\\Product\\ProdCate.cshtml",
+              "ToolTip": "C:\\Users\\NEC\\Desktop\\StoreMobile\\StoreMobile\\Views\\Product\\ProdCate.cshtml",
+              "RelativeToolTip": "StoreMobile\\Views\\Product\\ProdCate.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-08-30T06:09:09.992Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\NEC\\Desktop\\StoreMobile\\StoreMobile\\Views\\Product\\Index.cshtml",
+              "RelativeDocumentMoniker": "StoreMobile\\Views\\Product\\Index.cshtml",
+              "ToolTip": "C:\\Users\\NEC\\Desktop\\StoreMobile\\StoreMobile\\Views\\Product\\Index.cshtml",
+              "RelativeToolTip": "StoreMobile\\Views\\Product\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-08-30T06:09:02.058Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "About.cshtml",
+              "DocumentMoniker": "C:\\Users\\NEC\\Desktop\\StoreMobile\\StoreMobile\\Views\\Home\\About.cshtml",
+              "RelativeDocumentMoniker": "StoreMobile\\Views\\Home\\About.cshtml",
+              "ToolTip": "C:\\Users\\NEC\\Desktop\\StoreMobile\\StoreMobile\\Views\\Home\\About.cshtml",
+              "RelativeToolTip": "StoreMobile\\Views\\Home\\About.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-08-30T05:58:51.632Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Signup.cshtml",
+              "DocumentMoniker": "C:\\Users\\NEC\\Desktop\\StoreMobile\\StoreMobile\\Views\\User\\Signup.cshtml",
+              "RelativeDocumentMoniker": "StoreMobile\\Views\\User\\Signup.cshtml",
+              "ToolTip": "C:\\Users\\NEC\\Desktop\\StoreMobile\\StoreMobile\\Views\\User\\Signup.cshtml",
+              "RelativeToolTip": "StoreMobile\\Views\\User\\Signup.cshtml",
+              "ViewState": "AgIAAAsAAABAMzMzMzMLwBoAAAA1AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-08-30T05:49:32.409Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Login.cshtml",
+              "DocumentMoniker": "C:\\Users\\NEC\\Desktop\\StoreMobile\\StoreMobile\\Views\\User\\Login.cshtml",
+              "RelativeDocumentMoniker": "StoreMobile\\Views\\User\\Login.cshtml",
+              "ToolTip": "C:\\Users\\NEC\\Desktop\\StoreMobile\\StoreMobile\\Views\\User\\Login.cshtml",
+              "RelativeToolTip": "StoreMobile\\Views\\User\\Login.cshtml",
+              "ViewState": "AgIAAAgAAAAAMjMzMzMLwAEAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-08-30T05:47:32.515Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "UserController.cs",
+              "DocumentMoniker": "C:\\Users\\NEC\\Desktop\\StoreMobile\\StoreMobile\\Controllers\\UserController.cs",
+              "RelativeDocumentMoniker": "StoreMobile\\Controllers\\UserController.cs",
+              "ToolTip": "C:\\Users\\NEC\\Desktop\\StoreMobile\\StoreMobile\\Controllers\\UserController.cs",
+              "RelativeToolTip": "StoreMobile\\Controllers\\UserController.cs",
+              "ViewState": "AgIAAA0AAAAAMjMzMzPzvw4AAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-30T05:47:26.209Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "HomeController.cs",
+              "DocumentMoniker": "C:\\Users\\NEC\\Desktop\\StoreMobile\\StoreMobile\\Controllers\\HomeController.cs",
+              "RelativeDocumentMoniker": "StoreMobile\\Controllers\\HomeController.cs",
+              "ToolTip": "C:\\Users\\NEC\\Desktop\\StoreMobile\\StoreMobile\\Controllers\\HomeController.cs",
+              "RelativeToolTip": "StoreMobile\\Controllers\\HomeController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-30T05:39:57.24Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "AdminController.cs",
+              "DocumentMoniker": "C:\\Users\\NEC\\Desktop\\StoreMobile\\StoreMobile\\Controllers\\AdminController.cs",
+              "RelativeDocumentMoniker": "StoreMobile\\Controllers\\AdminController.cs",
+              "ToolTip": "C:\\Users\\NEC\\Desktop\\StoreMobile\\StoreMobile\\Controllers\\AdminController.cs",
+              "RelativeToolTip": "StoreMobile\\Controllers\\AdminController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-30T04:04:31.144Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\NEC\\Desktop\\StoreMobile\\StoreMobile\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "StoreMobile\\Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\Users\\NEC\\Desktop\\StoreMobile\\StoreMobile\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "StoreMobile\\Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAADUAAADAMjMzMzMrwCAAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-08-30T04:17:20.419Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

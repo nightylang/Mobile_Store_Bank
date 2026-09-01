@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using MobileStoreBank.Data;
+using StoreMobile.Data;
 
-namespace MobileStoreBank.Controllers
+namespace StoreMobile.Controllers
 {
     public class BankController : Controller
     {

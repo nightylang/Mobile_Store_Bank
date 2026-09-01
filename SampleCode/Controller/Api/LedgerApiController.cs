@@ -96,4 +96,23 @@ namespace MobileStoreBank.Controllers.Api
         public decimal Amount { get; set; }
         public string TargetAssetPool { get; set; } = "USD Core Ledger Pool";
     }
+    // Append this method inside your existing LedgerApiController class scope
+[HttpGet]
+[Route("state-summary")]
+public async Task<IActionResult> GetGlobalStateSummary()
+{
+    // Queries raw numbers directly using optimized non-tracking SQLite database metrics
+    var usdPool = await _context.Wallets.AsNoTracking().FirstOrDefaultAsync(w => w.AssetName.Contains("USD"));
+    var btcPool = await _context.Wallets.AsNoTracking().FirstOrDefaultAsync(w => w.AssetName.Contains("BTC"));
+    var openTickets = await _context.CrmTickets.AsNoTracking().CountAsync(t => t.Status != "Closed");
+
+    return Ok(new
+    {
+        UsdBalance = usdPool?.Balance ?? 0.00m,
+        BtcBalance = btcPool?.Balance ?? 0.00000000m,
+        PendingUsd = usdPool?.PendingClearance ?? 0.00m,
+        OpenTicketsCount = openTickets
+    });
+}
+    
 }

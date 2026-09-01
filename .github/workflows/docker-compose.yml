@@ -1,0 +1,51 @@
+# =========================================================================
+# MOBILE STORE BANK - WORKING PRODUCTION ENVIRONMENT ORCHESTRATOR
+# CORE ARCHITECTURE: .NET 10.0 PURE HTTP STACK + MICROSOFT SQL SERVER 2022
+# =========================================================================
+
+version: '3.8'
+
+services:
+  # LAYER 1: ENTERPRISE DATA PERSISTENCE ENGINE (SQL SERVER)
+  msb-sql-engine:
+    image: ://microsoft.com
+    container_name: msb_production_sql_node
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=SeniorDevPass_10.0_GA!
+      - MSSQL_PID=Developer
+    ports:
+      - "1433:1433"
+    volumes:
+      - msb-sql-data:/var/opt/mssql/data
+    restart: always
+    healthcheck:
+      test: ["CMD", "/opt/mssql-tools/bin/sqlcmd", "-S", "localhost", "-U", "sa", "-P", "SeniorDevPass_10.0_GA!", "-Q", "SELECT 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # LAYER 2: HIGH-DENSITY APPLICATIVE SYSTEM (WEB CORE INSTANCE)
+  msb-web-platform:
+    image: mobilestorebank-web:latest
+    container_name: msb_production_http_node
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:5000
+      - ConnectionStrings__DefaultConnection=Server=msb-sql-engine;Database=MobileStoreBankDb;User Id=sa;Password=SeniorDevPass_10.0_GA!;TrustServerCertificate=True;MultipleActiveResultSets=True;
+    restart: always
+    depends_on:
+      msb-sql-engine:
+        condition: service_healthy
+
+# =========================================================================
+# PERSISTENT SYSTEM VOLUMES DEFINITION
+# =========================================================================
+volumes:
+  msb-sql-data:
+    driver: local

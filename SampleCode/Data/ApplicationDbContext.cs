@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace MobileStoreBank.Data
+namespace StoreMobile.Data
 {
     // ==========================================
     // DOMAIN ENTITY CORE LAYER MODELS

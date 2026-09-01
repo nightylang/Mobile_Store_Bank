@@ -1,4 +1,4 @@
-namespace MobileStoreBank.Models
+namespace StoreMobile.Models
 {
     public class AttendanceRecord
     {

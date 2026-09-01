@@ -2,7 +2,7 @@ using System.Security.Cryptography;
 using System.Text;
 using StoreMobile.Models;
 
-namespace MobileStoreBank.Data
+namespace StoreMobile.Data
 {
     public static class LedgerGuardService
     {

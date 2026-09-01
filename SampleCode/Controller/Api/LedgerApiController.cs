@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 using MobileStoreBank.Data;
-using MobileStoreBank.Models;
 
 namespace MobileStoreBank.Controllers.Api
 {
@@ -16,103 +17,62 @@ namespace MobileStoreBank.Controllers.Api
             _context = context;
         }
 
-        /// <summary>
-        /// Remote execution pipeline for external mobile store POS client terminal machines.
-        /// Route payload endpoint: POST http://localhost:5000/api/ledger/settle
-        /// </summary>
         [HttpPost]
-        [Route("settle")]
-        public async Task<IActionResult> ExecuteTerminalSettlement(
+        [Route("settle-sp")]
+        public async Task<IActionResult> ExecuteSettleViaStoredProcedure(
             [FromHeader(Name = "X-POS-Terminal-ID")] string terminalId,
             [FromHeader(Name = "X-POS-Security-Token")] string securityToken,
             [FromBody] PosSettlementRequest payload)
         {
-            // 1. Asymmetric hardware-token security validation gate
-            if (string.IsNullOrWhiteSpace(terminalId) || securityToken != "POS-SECURE-KEY-HASH-V2")
-            {
-                return StatusCode(401, new { Error = "Security Handshake Refused: Invalid token mapping over HTTP cleartext pipe." });
-            }
+            // 1. Generate runtime metadata values
+            string txnRef = $"POS-TXN-{Guid.NewGuid().ToString("N").Substring(0, 8).ToUpper()}";
+            
+            // Build temporary mock model instance to pass down to your HMAC protection service layer
+            var mockTxn = new Models.TransactionRecord {
+                ReferenceNumber = txnRef, SourceWallet = $"POS-Terminal-{terminalId}",
+                DestinationWallet = payload.TargetAssetPool, Amount = payload.Amount, Status = "Completed"
+            };
+            string integrityHash = LedgerGuardService.ComputeRecordSignature(mockTxn);
 
-            if (payload.Amount <= 0)
-            {
-                return BadRequest(new { Error = "Invalid Payload: Transaction transaction amount threshold must be greater than zero." });
-            }
+            // 2. Map strict strongly-typed SQL parameters matching our stored procedure signature
+            var paramTerminal  = new SqlParameter("@TerminalId", SqlDbType.NVarChar, 150) { Value = terminalId ?? (object)DBNull.Value };
+            var paramToken     = new SqlParameter("@SecurityToken", SqlDbType.NVarChar, 200) { Value = securityToken ?? (object)DBNull.Value };
+            var paramPool      = new SqlParameter("@TargetAssetPool", SqlDbType.NVarChar, 50) { Value = payload.TargetAssetPool };
+            var paramAmount    = new SqlParameter("@SettlementAmount", SqlDbType.Decimal) { Precision = 18, Scale = 2, Value = payload.Amount };
+            var paramRef       = new SqlParameter("@GeneratedTxnRef", SqlDbType.NVarChar, 100) { Value = txnRef };
+            var paramHash      = new SqlParameter("@IntegrityHash", SqlDbType.NVarChar, 256) { Value = integrityHash };
+            
+            // Output parameter target to intercept calculated asset values from the SQL Server engine
+            var paramOutBal    = new SqlParameter("@NewInternalBalance", SqlDbType.Decimal) {
+                Precision = 18, Scale = 2, Direction = ParameterDirection.Output
+            };
 
-            // 2. Fetch target settlement liquidity wallet context from DB
-            var targetWallet = await _context.Wallets
-                .FirstOrDefaultAsync(w => w.AssetName == payload.TargetAssetPool);
-
-            if (targetWallet == null)
-            {
-                return NotFound(new { Error = $"Target pool mapping error: Asset pool '{payload.TargetAssetPool}' not recognized." });
-            }
-
-            // 3. Begin an isolated transaction context execution sequence
-            using var dbTransaction = await _context.Database.BeginTransactionAsync();
             try
             {
-                // Increment wallet equity
-                targetWallet.Balance += payload.Amount;
+                // Execute database context procedure natively
+                await _context.Database.ExecuteSqlRawAsync(
+                    "EXEC dbo.sp_ExecuteStoreSettlement @TerminalId, @SecurityToken, @TargetAssetPool, @SettlementAmount, @GeneratedTxnRef, @IntegrityHash, @NewInternalBalance OUTPUT",
+                    paramTerminal, paramToken, paramPool, paramAmount, paramRef, paramHash, paramOutBal);
 
-                // Log a clean immutable record directly onto the physical database ledger
-                var record = new TransactionRecord
-                {
-                    ReferenceNumber = $"POS-TXN-{Guid.NewGuid().ToString("N").Substring(0, 8).ToUpper()}",
-                    SourceWallet = $"POS-Terminal-{terminalId}",
-                    DestinationWallet = targetWallet.AssetName,
-                    Amount = payload.Amount,
-                    Status = "Completed",
-                    Timestamp = DateTime.UtcNow
-                };
-
-                _context.TransactionRecords.Add(record);
-                await _context.SaveChangesAsync();
-
-                // Commit the atomic database modification transaction cleanly
-                await dbTransaction.CommitAsync();
+                decimal updatedBalance = (decimal)paramOutBal.Value;
 
                 return Ok(new
                 {
                     Status = "Verified",
-                    TransactionRef = record.ReferenceNumber,
-                    SettledPool = targetWallet.AssetName,
-                    NewInternalBalance = targetWallet.Balance,
-                    SystemTimestamp = record.Timestamp
+                    TransactionRef = txnRef,
+                    NewInternalBalance = updatedBalance,
+                    SystemChannel = "Stored Procedure Matrix Optimization Layer"
                 });
             }
-            catch (Exception)
+            catch (SqlException ex)
             {
-                await dbTransaction.RollbackAsync();
-                return StatusCode(500, new { Error = "Database Transaction Failure Anomaly occurred while processing point-of-sale payload state." });
+                // Intercept and handle SQL Server bubble error indicators safely
+                return StatusCode(400, new { Error = $"Database Rule Rejection: {ex.Message}" });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Error = $"Pipeline Internal Crash Anomaly: {ex.Message}" });
             }
         }
     }
-
-    /// <summary>
-    /// Strict Data Transfer Object matching merchant payload matrices
-    /// </summary>
-    public class PosSettlementRequest
-    {
-        public decimal Amount { get; set; }
-        public string TargetAssetPool { get; set; } = "USD Core Ledger Pool";
-    }
-    // Append this method inside your existing LedgerApiController class scope
-[HttpGet]
-[Route("state-summary")]
-public async Task<IActionResult> GetGlobalStateSummary()
-{
-    // Queries raw numbers directly using optimized non-tracking SQLite database metrics
-    var usdPool = await _context.Wallets.AsNoTracking().FirstOrDefaultAsync(w => w.AssetName.Contains("USD"));
-    var btcPool = await _context.Wallets.AsNoTracking().FirstOrDefaultAsync(w => w.AssetName.Contains("BTC"));
-    var openTickets = await _context.CrmTickets.AsNoTracking().CountAsync(t => t.Status != "Closed");
-
-    return Ok(new
-    {
-        UsdBalance = usdPool?.Balance ?? 0.00m,
-        BtcBalance = btcPool?.Balance ?? 0.00000000m,
-        PendingUsd = usdPool?.PendingClearance ?? 0.00m,
-        OpenTicketsCount = openTickets
-    });
-}
-    
 }

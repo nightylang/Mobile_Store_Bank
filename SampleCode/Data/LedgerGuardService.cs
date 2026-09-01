@@ -1,6 +1,6 @@
 using System.Security.Cryptography;
 using System.Text;
-using MobileStoreBank.Models;
+using StoreMobile.Models;
 
 namespace MobileStoreBank.Data
 {

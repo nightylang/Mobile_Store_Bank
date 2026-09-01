@@ -1,0 +1,19 @@
+@section HeadStyles { <link rel="stylesheet" href="~/css/product-card.css" /> }
+<div class="msb-product-card" style="max-w-md; margin: 0 auto; text-center: center;">
+    <div class="msb-asset-image-frame" style="height: 240px; flex-direction: column; gap: 14px;">
+        <!-- Visual Scanning Target Animation Reticle Grid -->
+        <div style="width: 140px; height: 140px; border: 2px dashed var(--msb-purple-primary); border-radius: 12px; position: relative; animation: spin 20s linear infinite;" class="animate-glow-pulse">
+            <div style="position: absolute; top:0; left:0; width:12px; height:12px; border-top:4px solid var(--msb-cyan-price); border-left:4px solid var(--msb-cyan-price);"></div>
+            <div style="position: absolute; top:0; right:0; width:12px; height:12px; border-top:4px solid var(--msb-cyan-price); border-right:4px solid var(--msb-cyan-price);"></div>
+        </div>
+        <span style="font-family: monospace; font-size: 11px; color: var(--msb-cyan-price); letter-spacing: 1px;">WAITING FOR EXTERNAL PYTHON VIDEO STREAM FEED...</span>
+    </div>
+    <div class="msb-card-content-segment" style="text-align: center;">
+        <h4 class="msb-item-title">Automated Badge Scan Gate</h4>
+        <p class="msb-item-description" style="margin-top: 6px;">Launch your local hardware processing client script to feed biometric camera coordinates directly down onto our cleartext endpoints loop.</p>
+    </div>
+    <div style="margin-top: 14px; border-top: 1px solid rgba(168, 85, 247, 0.15); padding-top: 12px; display: flex; gap: 8px;">
+        <a href="/Attendance/CheckIn" class="msb-action-cart-trigger" style="flex: 1; text-decoration: none; font-size: 11px; height: 36px; display: flex; align-items: center; justify-content: center;">Check-In Portal</a>
+        <a href="/Attendance/CheckOut" class="msb-action-cart-trigger" style="flex: 1; text-decoration: none; font-size: 11px; height: 36px; display: flex; align-items: center; justify-content: center;">Check-Out Portal</a>
+    </div>
+</div>

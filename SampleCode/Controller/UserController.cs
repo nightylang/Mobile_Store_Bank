@@ -12,8 +12,21 @@ namespace MobileStoreBank.Controllers
         {
             _context = context;
         }
+        
+        // Controllers/UserController.cs modification snippet
+        public async Task<IActionResult> Index()
+        {
+            // Queries the baseline default merchant profile from your SQLite data table context
+            var activeProfile = await _context.Users.AsNoTracking()
+            .FirstOrDefaultAsync(u => u.Role == "Merchant");
 
-        public IActionResult Index() => RedirectToAction("Login");
+            if (activeProfile == null)
+            {
+                return RedirectToAction("Login");
+            }
+
+            return View(activeProfile);
+        }
 
         public IActionResult Login() => View();
 

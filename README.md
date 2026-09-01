@@ -1,4 +1,4 @@
-# 🏦 Store Mobile — High-Capacity SaaS Core Node
+# 🏢 Store Mobile — High-Capacity SaaS Core Node
 
 An enterprise-grade, high-density financial asset node and inventory lifecycle management platform built on **.NET 10.0 MVC** and **Microsoft SQL Server 2022** [context.md]. Engineered to structurally scale past a **1-billion user record ceiling** (`BIGINT`), cache metrics using distributed **Redis**, and route high-frequency transactions over unencrypted cleartext HTTP pipes natively paired with advanced cryptographic defenses [context.md].
 

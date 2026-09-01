@@ -13,7 +13,7 @@ foreach ($Dir in $Directories) {
     New-Item -ItemType Directory -Force -Path $Dir | Out-Null
 }
 
-Set-Location MobileStoreBank
+Set-Location StoreMobile
 
 Write-Host "📄 Creating project configuration file..." -ForegroundColor Yellow
 @'
@@ -29,7 +29,7 @@ Write-Host "📄 Creating project configuration file..." -ForegroundColor Yellow
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.0" />
   </ItemGroup>
 </Project>
-'@ | Out-File -FilePath MobileStoreBank.csproj -Encoding utf8
+'@ | Out-File -FilePath StoreMobile.csproj -Encoding utf8
 
 Write-Host "⚙️ Generating Program.cs pipeline..." -ForegroundColor Yellow
 @'
@@ -98,14 +98,14 @@ namespace MobileStoreBank.Data {
 Write-Host "🎮 Generating Controllers Layer..." -ForegroundColor Yellow
 @'
 using Microsoft.AspNetCore.Mvc;
-namespace MobileStoreBank.Controllers { public class HomeController : Controller { public IActionResult Index() => View(); public IActionResult About() => View(); public IActionResult Product() => View(); public IActionResult Bank() => View(); } }
+namespace StoreMobile.Controllers { public class HomeController : Controller { public IActionResult Index() => View(); public IActionResult About() => View(); public IActionResult Product() => View(); public IActionResult Bank() => View(); } }
 '@ | Out-File -FilePath Controllers/HomeController.cs -Encoding utf8
 
 @'
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using MobileStoreBank.Data;
-namespace MobileStoreBank.Controllers {
+using StoreMobile.Data;
+namespace StoreMobile.Controllers {
     public class AdminController : Controller {
         private readonly ApplicationDbContext _c;
         public AdminController(ApplicationDbContext c) => _c = c;
@@ -119,14 +119,14 @@ namespace MobileStoreBank.Controllers {
 
 @'
 using Microsoft.AspNetCore.Mvc;
-namespace MobileStoreBank.Controllers { public class UserController : Controller { public IActionResult Index() => View(); public IActionResult Login() => View(); public IActionResult SignUp() => View(); } }
+namespace StoreMobile.Controllers { public class UserController : Controller { public IActionResult Index() => View(); public IActionResult Login() => View(); public IActionResult SignUp() => View(); } }
 '@ | Out-File -FilePath Controllers/UserController.cs -Encoding utf8
 
 @'
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using MobileStoreBank.Data;
-namespace MobileStoreBank.Controllers {
+using StoreMobile.Data;
+namespace StoreMobile.Controllers {
     public class ProductsController : Controller {
         private readonly ApplicationDbContext _c;
         public ProductsController(ApplicationDbContext c) => _c = c;
@@ -141,8 +141,8 @@ namespace MobileStoreBank.Controllers {
 @'
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using MobileStoreBank.Data;
-namespace MobileStoreBank.Controllers {
+using StoreMobile.Data;
+namespace StoreMobile.Controllers {
     public class BankController : Controller {
         private readonly ApplicationDbContext _c;
         public BankController(ApplicationDbContext c) => _c = c;
@@ -155,7 +155,7 @@ namespace MobileStoreBank.Controllers {
 '@ | Out-File -FilePath Controllers/BankController.cs -Encoding utf8
 
 Write-Host "🎨 Generating Razor Layout Elements..." -ForegroundColor Yellow
-"@using MobileStoreBank`n@using MobileStoreBank.Data`n@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers" | Out-File -FilePath Views/_ViewImports.cshtml -Encoding utf8
+"@using StoreMobile`n@using StoreMobile.Data`n@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers" | Out-File -FilePath Views/_ViewImports.cshtml -Encoding utf8
 "@{ Layout = `"_Layout.cshtml`"; }" | Out-File -FilePath Views/_ViewStart.cshtml -Encoding utf8
 
 @'
@@ -163,7 +163,7 @@ Write-Host "🎨 Generating Razor Layout Elements..." -ForegroundColor Yellow
 <html lang="en" class="h-full bg-slate-950 text-slate-100">
 <head>
     <meta charset="utf-8" />
-    <title>Mobile Store Bank</title>
+    <title>Store Mobile</title>
     <script src="https://tailwindcss.com"></script>
 </head>
 <body class="min-h-full flex flex-col bg-slate-950 text-slate-100 antialiased">
@@ -182,7 +182,7 @@ Write-Host "🎨 Generating Razor Layout Elements..." -ForegroundColor Yellow
         </div>
     </main>
     <footer class="border-t border-white/10 bg-slate-950/80 p-8 text-center text-xs text-slate-500">
-        &copy; Mobile Store Bank. Running over cleartext HTTP.
+        &copy; Store Mobile. Running over cleartext HTTP.
     </footer>
 </body>
 </html>
@@ -197,7 +197,7 @@ Write-Host "📝 Populating key view pages..." -ForegroundColor Yellow
 '@ | Out-File -FilePath Views/Home/Index.cshtml -Encoding utf8
 
 @'
-@model IEnumerable<MobileStoreBank.Data.Wallet>
+@model IEnumerable<StoreMobile.Data.Wallet>
 <div class="space-y-6">
     <h2 class="text-2xl font-bold">Active SaaS Wallets</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">

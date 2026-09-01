@@ -1,0 +1,41 @@
+# =========================================================================
+# MOBILE STORE BANK - CONTINUOUS INTEGRATION DISPATCH ENGINE
+# CI PIPELINE TARGET ENGINE: GITHUB ACTIONS PIPELINE RUNNER
+# =========================================================================
+
+name: Mobile Store Bank CI Engine
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test:
+    name: Execute Framework Compilation & Verification Test Matrix
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1. CHECKOUT CURRENT REPOSITORY TREE CODE MATRICES
+    - name: Checkout Source Infrastructure Bundle
+      uses: actions/checkout@v4
+
+    # 2. RUNTIME ENVIRONMENT SETUP TARGETING .NET 10.0
+    - name: Initialize .NET 10 Build Engine Runtime
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '10.0.x' # Pulls down the latest active .NET 10 SDK
+
+    # 3. RESTORE FRAMEWORK EXTENSION ARTIFACT DEPENDENCIES
+    - name: Restore Project Dependencies Cache
+      run: dotnet restore
+
+    # 4. RUN SOLUTION COMPILATION ANALYSIS
+    - name: Compile Codebase Solution Assets
+      run: dotnet build --no-restore --configuration Release
+
+    # 5. RUN THE COMPLETE XUNIT AUTOMATED TEST MATRIX
+    - name: Execute xUnit Automated Verification Test Matrix
+      run: dotnet test --no-build --configuration Release --verbosity normal
+      

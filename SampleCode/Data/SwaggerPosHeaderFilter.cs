@@ -1,7 +1,7 @@
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace MobileStoreBank.Data
+namespace StoreMobile.Data
 {
     public class SwaggerPosHeaderFilter : IOperationFilter
     {

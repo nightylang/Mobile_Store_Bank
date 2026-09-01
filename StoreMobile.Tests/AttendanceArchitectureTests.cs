@@ -1,11 +1,11 @@
 using Xunit;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using MobileStoreBank.Controllers;
-using MobileStoreBank.Data;
-using MobileStoreBank.Models;
+using StoreMobile.Controllers;
+using StoreMobile.Data;
+using StoreMobile.Models;
 
-namespace MobileStoreBank.Tests
+namespace StoreMobile.Tests
 {
     public class AttendanceArchitectureTests
     {
@@ -15,7 +15,7 @@ namespace MobileStoreBank.Tests
         private ApplicationDbContext CreateInMemoryDbContext()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: $"MobileStoreBank_AttendanceTestPool_{Guid.NewGuid()}")
+                .UseInMemoryDatabase(databaseName: $"StoreMobile_AttendanceTestPool_{Guid.NewGuid()}")
                 .Options;
 
             return new ApplicationDbContext(options);

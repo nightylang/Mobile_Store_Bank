@@ -1,13 +1,13 @@
-Write-Host "🚀 Creating Mobile Store Bank directory structure..." -ForegroundColor Cyan
+Write-Host "🚀 Creating Store Mobile directory structure..." -ForegroundColor Cyan
 $Directories = @(
-    "MobileStoreBank/Data",
-    "MobileStoreBank/Controllers",
-    "MobileStoreBank/Views/Shared",
-    "MobileStoreBank/Views/Home",
-    "MobileStoreBank/Views/Admin",
-    "MobileStoreBank/Views/User",
-    "MobileStoreBank/Views/Products",
-    "MobileStoreBank/Views/Bank"
+    "StoreMobile/Data",
+    "StoreMobile/Controllers",
+    "StoreMobile/Views/Shared",
+    "StoreMobile/Views/Home",
+    "StoreMobile/Views/Admin",
+    "StoreMobile/Views/User",
+    "StoreMobile/Views/Products",
+    "StoreMobile/Views/Bank"
 )
 foreach ($Dir in $Directories) {
     New-Item -ItemType Directory -Force -Path $Dir | Out-Null

@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using MobileStoreBank.Data;
-using MobileStoreBank.Models;
+using StoreMobile.Data;
+using StoreMobile.Models;
 
-namespace MobileStoreBank.Controllers
+namespace StoreMobile.Controllers
 {
     public class AttendanceController : Controller
     {

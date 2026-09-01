@@ -171,4 +171,63 @@ window.InitializeProductActionListeners = function() {
         }
     });
 };
+/**
+ * Mobile Store Bank - Real-Time Pure SVG Graph Plotting Module
+ * Tracks running historical ledger surge data streams on pure JS arrays
+ */
+
+// 1. Maintain a rolling data queue constraint cache (Cap at max 12 historical plot columns)
+const transactionalHistoryQueue =;
+const maxHistoricalDataPoints = 12;
+
+/**
+ * Maps clear numerical data matrices into localized SVG viewport point string arrays
+ */
+window.RenderDashboardGraphTelemetry = function(newIncomingBalanceValue) {
+    const svgGridCanvas = document.getElementById('msb-telemetry-svg');
+    const linePathElement = document.getElementById('msb-graph-polyline');
+    if (!svgGridCanvas || !linePathElement) return;
+
+    // Cache newest asset numerical scalar parameters inside the rolling state matrix array
+    if (newIncomingBalanceValue) {
+        transactionalHistoryQueue.push(parseFloat(newIncomingBalanceValue));
+        if (transactionalHistoryQueue.length > maxHistoricalDataPoints) {
+            transactionalHistoryQueue.shift();
+        }
+    }
+
+    // Capture exact dimensional rendering box properties
+    const canvasWidth = svgGridCanvas.clientWidth || 300;
+    const canvasHeight = svgGridCanvas.clientHeight || 120;
+    const paddingOffset = 10;
+
+    const minVal = Math.min(...transactionalHistoryQueue);
+    const maxVal = Math.max(...transactionalHistoryQueue);
+    const valueRange = (maxVal - minVal) === 0 ? 1 : (maxVal - minVal);
+
+    const stepXAxis = (canvasWidth - (paddingOffset * 2)) / (transactionalHistoryQueue.length - 1);
+    
+    // 2. Generate the native string coordinates array matching SVG polyline standard syntax rules
+    const targetPointsCoordinateString = transactionalHistoryQueue.map((balancePoint, index) => {
+        const coordinateX = paddingOffset + (index * stepXAxis);
+        
+        // Invert Y axis tracking parameters since browser view space coords scale from top-to-bottom
+        const coordinateY = (canvasHeight - paddingOffset) - 
+            (((balancePoint - minVal) / valueRange) * (canvasHeight - (paddingOffset * 2)));
+            
+        return `${coordinateX},${coordinateY}`;
+    }).join(' ');
+
+    // 3. Inject attributes cleanly directly down onto the DOM canvas vector nodes
+    linePathElement.setAttribute('points', targetPointsCoordinateString);
+    
+    // Add structural micro-animations: trigger flash glow pulse mechanics on line wrapper elements
+    svgGridCanvas.classList.add('animate-glow-pulse');
+    setTimeout(() => svgGridCanvas.classList.remove('animate-glow-pulse'), 1000);
+};
+
+// 4. Overwrite your API poll cycle hooks hook to bind the calculation automatically
+// Append this property inside your existing InitializeLedgerPollingLoop callback fetch:
+// window.StoreBankState.usdPoolBalance = data.usdBalance;
+// if (typeof window.RenderDashboardGraphTelemetry === "function") { window.RenderDashboardGraphTelemetry(data.usdBalance); }
 

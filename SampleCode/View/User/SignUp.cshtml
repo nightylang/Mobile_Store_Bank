@@ -1,0 +1,65 @@
+@model MobileStoreBank.Models.User
+@{
+    ViewData["Title"] = "Provision Node";
+}
+
+<div class="max-w-md mx-auto py-8 space-y-6">
+    <!-- Header Block -->
+    <div class="text-center space-y-2">
+        <span class="px-2.5 py-1 bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 text-[10px] font-bold tracking-widest rounded-full uppercase font-mono">
+            Registration Matrix
+        </span>
+        <h3 class="text-2xl font-black text-white tracking-tight">Provision Identity Node</h3>
+        <p class="text-xs text-slate-400">Append clear cryptographic authorization configurations down to local datastore schemas.</p>
+    </div>
+
+    <!-- Glassmorphic Registration Form Wrapper Card -->
+    <div class="bg-white/[0.01] border border-white/10 backdrop-blur-saas p-6 sm:p-8 rounded-xl shadow-2xl">
+        <form method="post" action="/User/SignUp" class="space-y-5">
+            @Html.AntiForgeryToken()
+
+            <!-- Validation Error Summary Area -->
+            <div asp-validation-summary="ModelOnly" class="p-3 bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-mono rounded-lg hidden"></div>
+
+            <!-- Username Field input -->
+            <div>
+                <label asp-for="Username" class="block text-2xs uppercase tracking-widest text-slate-400 font-bold mb-2">Unique Identity Label</label>
+                <input type="text" asp-for="Username" required 
+                       class="w-full bg-black/40 border border-white/10 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:outline-none p-3 rounded-lg text-sm font-mono text-white transition-all placeholder:text-slate-600" 
+                       placeholder="e.g., senior_merchant_node" />
+                <span asp-validation-for="Username" class="text-2xs text-red-400 font-mono mt-1 block"></span>
+            </div>
+
+            <!-- Email Field input -->
+            <div>
+                <label asp-for="Email" class="block text-2xs uppercase tracking-widest text-slate-400 font-bold mb-2">Network Communication Mailbox</label>
+                <input type="email" asp-for="Email" required 
+                       class="w-full bg-black/40 border border-white/10 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:outline-none p-3 rounded-lg text-sm font-mono text-white transition-all placeholder:text-slate-600" 
+                       placeholder="merchant@storebank.com" />
+                <span asp-validation-for="Email" class="text-2xs text-red-400 font-mono mt-1 block"></span>
+            </div>
+
+            <!-- Password Field input -->
+            <div>
+                <label asp-for="PasswordHash" class="block text-2xs uppercase tracking-widest text-slate-400 font-bold mb-2">Secret PassKey Security Phrase</label>
+                <input type="password" asp-for="PasswordHash" required 
+                       class="w-full bg-black/40 border border-white/10 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:outline-none p-3 rounded-lg text-sm font-mono text-white transition-all placeholder:text-slate-600" 
+                       placeholder="••••••••••••" />
+                <span asp-validation-for="PasswordHash" class="text-2xs text-red-400 font-mono mt-1 block"></span>
+            </div>
+
+            <!-- Default Authorization Hidden Context Mapping -->
+            <input type="hidden" asp-for="Role" value="Merchant" />
+
+            <!-- Submit Execution Core Target Trigger -->
+            <button type="submit" class="w-full p-3 bg-cyan-600 hover:bg-cyan-500 text-white font-semibold text-sm rounded-lg transition-all shadow-lg shadow-cyan-600/20 active:scale-[0.99]">
+                Commit Identity Structural Entry
+            </button>
+        </form>
+    </div>
+
+    <!-- Navigation Redirect Footer Area Link -->
+    <div class="text-center text-xs text-slate-500">
+        Already have an active verified node mapping? <a href="/User/Login" class="text-indigo-400 hover:underline">Execute Handshake Authentication</a>
+    </div>
+</div>

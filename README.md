@@ -9,7 +9,7 @@ An enterprise-grade, high-density financial asset node and inventory lifecycle m
 ![.NET Core](https://shields.io)
 ![SQL Server](https://shields.io)
 ![Redis](https://shields.io)
-![Python](https://shields.io)
+![Python](https://s3.dualstack.us-east-2.amazonaws.com/pythondotorg-assets/media/community/logos/python-logo-only.png)
 ![Language](https://shields.io)
 
 ---

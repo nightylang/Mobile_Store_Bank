@@ -1,0 +1,46 @@
+@model IEnumerable<MobileStoreBank.Models.Product>
+@{
+    ViewData["Title"] = "Global Vault Assets";
+}
+
+<div class="space-y-6">
+    <div class="flex justify-between items-center border-b border-white/10 pb-4">
+        <div>
+            <h3 class="text-xl font-black text-white tracking-tight">Global Catalog Vault Records</h3>
+            <p class="text-xs text-slate-400 font-mono">Context Stream: Data.Products.ToListAsync()</p>
+        </div>
+        <a href="/Products/CRUD" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-xs font-semibold rounded-lg transition-all shadow-md shadow-indigo-600/20">
+            + Provision New Asset
+        </a>
+    </div>
+
+    <div class="overflow-x-auto border border-white/10 rounded-xl bg-black/20">
+        <table class="w-full text-left text-xs border-collapse">
+            <thead class="bg-white/5 border-b border-white/10 text-slate-300 font-semibold tracking-wider uppercase text-[10px]">
+                <tr>
+                    <th class="p-4">SKU Code</th>
+                    <th class="p-4">Asset Label Descriptor</th>
+                    <th class="p-4">Structural Segment</th>
+                    <th class="p-4">Unit Clearing Threshold</th>
+                    <th class="p-4">Available Vault Supply</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-white/5 text-slate-400 font-mono">
+                @foreach (var product in Model)
+                {
+                    <tr class="hover:bg-white/[0.02] transition-colors">
+                        <td class="p-4 text-slate-500 font-bold">@product.SKU</td>
+                        <td class="p-4 text-white font-sans font-medium text-sm">@product.Name</td>
+                        <td class="p-4 font-sans text-slate-300">@product.Category</td>
+                        <td class="p-4 text-cyan-400 font-bold text-sm">$@product.Price.ToString("N2")</td>
+                        <td class="p-4 font-sans text-slate-300">
+                            <span class="@(product.Stock < 20 ? "text-amber-400 font-bold" : "text-slate-300")">
+                                @product.Stock units
+                            </span>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

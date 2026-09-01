@@ -1,0 +1,293 @@
+/* ==========================================================================
+   MOBILE STORE BANK: PURPLE GLASSMORPHISM SEMANTIC UTILITY TOKENS
+   ========================================================================== */
+
+:root {
+    /* Pure Color Palette Variables */
+    --msb-canvas-bg: #06020c;
+    --msb-text-main: #f8fafc;
+    --msb-text-muted: #94a3b8;
+    --msb-purple-primary: #a855f7;
+    --msb-purple-glow: #7c3aed;
+    --msb-cyan-price: #22d3ee;
+    
+    /* Semantic Glassmorphism Configurations */
+    --msb-glass-surface: rgba(24, 15, 41, 0.55);
+    --msb-glass-border: rgba(168, 85, 247, 0.22);
+    --msb-glass-blur: blur(20px);
+}
+
+/* ==========================================================================
+   1. SAAS ARCHITECTURE GRID CANVAS & LAYOUT ENVIRONMENT
+   ========================================================================== */
+
+.msb-card-grid-wrapper {
+    position: relative;
+    width: 100%;
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background-color: var(--msb-canvas-bg);
+    overflow: hidden;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Ambient Radial Background Glow Blobs */
+.msb-ambient-glow-left {
+    position: absolute;
+    width: 350px;
+    height: 350px;
+    top: 10%;
+    left: 15%;
+    background: rgba(124, 58, 237, 0.15);
+    border-radius: 50%;
+    filter: blur(100px);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.msb-ambient-glow-right {
+    position: absolute;
+    width: 380px;
+    height: 380px;
+    bottom: 10%;
+    right: 15%;
+    background: rgba(219, 39, 119, 0.1);
+    border-radius: 50%;
+    filter: blur(110px);
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* ==========================================================================
+   2. REFACTORED PRODUCT NODE COMPONENT CONTAINER (THE CARD)
+   ========================================================================== */
+
+.msb-product-card {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    max-width: 340px;
+    background: var(--msb-glass-surface);
+    border: 1px solid var(--msb-glass-border);
+    backdrop-filter: var(--msb-glass-blur);
+    -webkit-backdrop-filter: var(--msb-glass-blur);
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.msb-product-card:hover {
+    border-color: rgba(168, 85, 247, 0.45);
+    transform: translateY(-2px);
+    box-shadow: 0 0 30px 2px rgba(124, 58, 237, 0.12), 
+                0 25px 50px -12px rgba(0, 0, 0, 0.9);
+}
+
+/* ==========================================================================
+   3. FLOATING HARDWARE ASSET DISPLAY CANVAS SYSTEM
+   ========================================================================== */
+
+.msb-asset-image-frame {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    overflow: hidden;
+}
+
+.msb-hardware-node-vector {
+    width: 100px;
+    height: 140px;
+    background: linear-gradient(135deg, var(--msb-purple-primary), var(--msb-purple-glow));
+    border-radius: 10px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+    opacity: 0.85;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 12px;
+    transition: transform 0.4s ease;
+}
+
+.msb-product-card:hover .msb-hardware-node-vector {
+    transform: scale(1.04) rotate(2deg);
+}
+
+/* Inner vector details */
+.msb-vector-screen { width: 100%; height: 4px; background: rgba(255,255,255,0.3); border-radius: 2px; }
+.msb-vector-badge  { width: 32px; height: 32px; background: rgba(255,255,255,0.1); border-radius: 50%; border: 1px solid rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; align-self: center; font-size: 9px; font-weight: bold; color: var(--msb-text-main); }
+.msb-vector-base   { display: flex; justify-content: space-between; }
+.msb-vector-pill   { width: 20px; height: 4px; background: rgba(255,255,255,0.2); border-radius: 2px; }
+.msb-vector-led    { width: 6px; height: 6px; background: #34d399; border-radius: 50%; }
+
+/* Overlay UI Buttons */
+.msb-floating-sku-tag {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: rgba(168, 85, 247, 0.2);
+    color: #d8b4fe;
+    border: 1px solid rgba(168, 85, 247, 0.3);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-size: 9px;
+    font-family: monospace;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.msb-floating-favorite-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 8px;
+    color: var(--msb-text-slate-muted);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(8px);
+    transition: all 0.2s ease;
+}
+
+.msb-floating-favorite-btn:hover {
+    color: var(--msb-purple-primary);
+    border-color: rgba(168, 85, 247, 0.4);
+    transform: scale(1.05);
+}
+
+/* ==========================================================================
+   4. DATA SPECIFICATION DESCRIPTION METRICS
+   ========================================================================== */
+
+.msb-card-content-segment {
+    margin-bottom: 16px;
+}
+
+.msb-card-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.msb-item-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--msb-text-main);
+    letter-spacing: -0.25px;
+    transition: color 0.3s ease;
+}
+
+.msb-product-card:hover .msb-item-title {
+    color: #e9d5ff;
+}
+
+.msb-item-price {
+    font-family: monospace;
+    font-size: 18px;
+    font-weight: 900;
+    color: var(--msb-cyan-price);
+}
+
+.msb-item-subtitle {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--msb-purple-primary);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-family: monospace;
+    margin-top: 4px;
+}
+
+.msb-item-description {
+    font-size: 12px;
+    color: var(--msb-text-slate-muted);
+    line-height: 1.5;
+    margin-top: 8px;
+}
+
+/* ==========================================================================
+   5. DECOUPLED OPERATIONS CORE BAR (BUY & CART ACTIONS)
+   ========================================================================== */
+
+.msb-card-actions-panel {
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: 8px;
+    border-top: 1px solid rgba(168, 85, 247, 0.15);
+    padding-top: 14px;
+}
+
+.msb-action-cart-trigger {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    color: var(--msb-text-slate-muted);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.msb-action-cart-trigger:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--msb-text-main);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.msb-action-buy-trigger {
+    background: linear-gradient(90deg, var(--msb-purple-glow), var(--msb-purple-primary));
+    border: none;
+    border-radius: 10px;
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    box-shadow: 0 10px 15px -3px rgba(124, 58, 237, 0.3);
+    transition: all 0.2s ease;
+}
+
+.msb-action-buy-trigger:hover {
+    background: linear-gradient(90deg, #6d28d9, #9333ea);
+    box-shadow: 0 10px 20px -3px rgba(124, 58, 237, 0.45);
+}
+
+.msb-action-cart-trigger:active,
+.msb-action-buy-trigger:active,
+.msb-floating-favorite-btn:active {
+    transform: scale(0.96);
+}
+
+/* Core SVG Framework Vector Constraints */
+.msb-ui-icon-vector {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}

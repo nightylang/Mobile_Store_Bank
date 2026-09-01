@@ -1,7 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
+using System.Text.Json;
 using MobileStoreBank.Data;
 
 namespace MobileStoreBank.Controllers.Api
@@ -11,18 +14,23 @@ namespace MobileStoreBank.Controllers.Api
     public class LedgerApiController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
+        private readonly IDistributedCache _cache;
 
-        public LedgerApiController(ApplicationDbContext context)
+        public LedgerApiController(ApplicationDbContext context, IDistributedCache cache)
         {
             _context = context;
+            _cache = cache;
         }
 
         [HttpPost]
-        [Route("settle-sp")]
+        [Route("settle")]
         public async Task<IActionResult> ExecuteSettleViaStoredProcedure(
             [FromHeader(Name = "X-POS-Terminal-ID")] string terminalId,
             [FromHeader(Name = "X-POS-Security-Token")] string securityToken,
             [FromBody] PosSettlementRequest payload)
+            await _cache.RemoveAsync("global_dashboard_summary");
+            
+            return Ok(new { Status = "Verified", Action = "Database Commit & Cache Synchronized" });
         {
             // 1. Generate runtime metadata values
             string txnRef = $"POS-TXN-{Guid.NewGuid().ToString("N").Substring(0, 8).ToUpper()}";
@@ -73,6 +81,37 @@ namespace MobileStoreBank.Controllers.Api
             {
                 return StatusCode(500, new { Error = $"Pipeline Internal Crash Anomaly: {ex.Message}" });
             }
+        }
+        [HttpGet]
+        [Route("state-summary")]
+        public async Task<IActionResult> GetGlobalStateSummary()
+        {
+            string cacheKey = "global_dashboard_summary";
+            
+            // Attempt to intercept execution paths from Redis first
+            var cachedData = await _cache.GetStringAsync(cacheKey);
+            if (!string.IsNullOrEmpty(cachedData))
+            {
+                var jsonPayload = JsonSerializer.Deserialize<object>(cachedData);
+                return Ok(jsonPayload);
+            }
+
+            // Fallback: Query primary SQL Server engine tables if cache misses occur
+            var usdPool = await _context.Wallets.AsNoTracking().FirstOrDefaultAsync(w => w.AssetName.Contains("USD"));
+            var openTickets = await _context.CrmTickets.AsNoTracking().CountAsync(t => t.Status != "Closed");
+
+            var dynamicPayload = new
+            {
+                UsdBalance = usdPool?.Balance ?? 0.00m,
+                OpenTicketsCount = openTickets,
+                SourceChannel = "Distributed Redis Engine Cache Miss"
+            };
+
+            // Commit serialized string data back to Redis memory blocks with 30-second relative expiration metrics
+            var cacheSettings = new DistributedCacheEntryOptions { RelativeExpiration = TimeSpan.FromSeconds(30) };
+            await _cache.SetStringAsync(cacheKey, JsonSerializer.Serialize(dynamicPayload), cacheSettings);
+
+            return Ok(dynamicPayload);
         }
     }
 }

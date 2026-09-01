@@ -5,9 +5,9 @@ using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
 using System.Text.Json;
-using MobileStoreBank.Data;
+using StoreMobile.Data;
 
-namespace MobileStoreBank.Controllers.Api
+namespace StoreMobile.Controllers.Api
 {
     [ApiController]
     [Route("api/ledger")]

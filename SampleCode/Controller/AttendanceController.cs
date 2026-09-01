@@ -38,6 +38,7 @@ namespace MobileStoreBank.Controllers
         // Endpoint Target: POST http://localhost:5000/attendance/process-scan
         
         [HttpPost]
+        [Route("attendance/process-scan")
         public async Task<IActionResult> ProcessScan([FromBody] PythonScanPayload payload)
         {
             if (payload == null || string.IsNullOrWhiteSpace(payload.UsernameToken))

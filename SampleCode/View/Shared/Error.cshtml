@@ -1,0 +1,30 @@
+@model MobileStoreBank.Models.ErrorViewModel
+@{
+    ViewData["Title"] = "Pipeline Exception";
+}
+
+<div class="text-center py-12 space-y-6">
+    <div class="inline-flex p-3 bg-red-500/10 border border-red-500/20 rounded-full text-red-400">
+        <svg xmlns="http://w3.org" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+        </svg>
+    </div>
+    
+    <h1 class="text-3xl font-black text-white tracking-tight">Execution Pipeline Anomaly</h1>
+    <p class="text-sm text-slate-400 max-w-md mx-auto leading-relaxed">
+        An unhandled operational exception occurred during local cleartext HTTP request parsing or database context tracking execution.
+    </p>
+
+    @if (Model.ShowRequestId)
+    {
+        <div class="inline-block px-4 py-2 bg-black/40 border border-white/10 rounded-lg font-mono text-xs text-slate-300">
+            <span class="text-indigo-400 font-semibold">Request Trace ID:</span> <code>@Model.RequestId</code>
+        </div>
+    }
+
+    <div class="pt-4">
+        <a href="/" class="px-5 py-2.5 bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-semibold rounded-lg transition-all">
+            Return to Core Ledger Dashboard
+        </a>
+    </div>
+</div>

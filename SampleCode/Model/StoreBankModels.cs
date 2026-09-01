@@ -1,5 +1,13 @@
 namespace MobileStoreBank.Models
 {
+    public class AttendanceRecord
+    {
+        public long Id { get; set; }
+        public string UserIdentity { get; set; } = string.Empty;
+        public DateTime Timestamp { get; set; } = DateTime.UtcNow;
+        public string ActionType { get; set; } = string.Empty; // CheckIn or CheckOut
+        public string TerminalNode { get; set; } = "PYTHON-VISION-NODE";
+    }
     public class User
     {
         public int Id { get; set; }

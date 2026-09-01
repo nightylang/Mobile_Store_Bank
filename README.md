@@ -6,11 +6,11 @@ An enterprise-grade, high-density financial asset node and inventory lifecycle m
 
 ## 🛠️ Technology Stack Badges
 
-![.NET Core](https://shields.io)
-![SQL Server](https://shields.io)
-![Redis](https://shields.io)
-![Python](https://s3.dualstack.us-east-2.amazonaws.com/pythondotorg-assets/media/community/logos/python-logo-only.png)
-![Language](https://shields.io)
+!<a href="https://github.com/nightylang"><img title=".NET Core" src="https://img.shields.io/badge/Copyring-2025-red?style=for-the-badge&logo=dotnetcore"></a>
+!<a href="https://github.com/nightylang"><img title="SQL Server" src="https://img.shields.io/badge/Copyring-2025-red?style=for-the-badge&logo=sqlserver"></a>
+!<a href="https://github.com/nightylang"><img title="Redis" src="https://img.shields.io/badge/Copyring-2025-red?style=for-the-badge&logo=redis"></a>
+!<a href="https://github.com/nightylang"><img title="Python" src="https://img.shields.io/badge/Copyring-2025-red?style=for-the-badge&logo=python"></a>
+!<a href="https://github.com/nightylang"><img title="Javascript" src="https://img.shields.io/badge/Copyring-2025-red?style=for-the-badge&logo=javascript"></a>
 
 ---
 

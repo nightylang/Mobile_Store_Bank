@@ -1,0 +1,30 @@
+@{ ViewData["Title"] = "Identity Exchange Gateway"; }
+<div class="max-w-md mx-auto py-8 space-y-6">
+    <div class="text-center space-y-2">
+        <h3 class="text-2xl font-black text-white tracking-tight">System Handshake Vault</h3>
+        <p class="text-xs text-slate-400">Submit verified access tokens to synchronize your profile context.</p>
+    </div>
+    
+    @if(ViewBag.ErrorMsg != null) {
+        <div class="p-3 bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-mono rounded-lg">
+            @ViewBag.ErrorMsg
+        </div>
+    }
+
+    <form method="post" action="/User/Login" class="space-y-4">
+        <div>
+            <label class="block text-2xs uppercase tracking-widest text-slate-400 font-bold mb-2">Node Login Identity</label>
+            
+        </div>
+        <div>
+            <label class="block text-2xs uppercase tracking-widest text-slate-400 font-bold mb-2">Cryptographic PassKey</label>
+            <input type="password" name="passKey" required class="w-full bg-black/40 border border-white/10 focus:border-indigo-500 focus:outline-none p-3 rounded-lg text-sm font-mono text-white transition-all" placeholder="••••••••" />
+        </div>
+        <button type="submit" class="w-full p-3 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm rounded-lg transition shadow-lg shadow-indigo-600/20">
+            Verify Handshake Credentials
+        </button>
+    </form>
+    <div class="text-center text-xs text-slate-500">
+        New node integration needed? <a href="/User/SignUp" class="text-indigo-400 hover:underline">Initialize Registration Block</a>
+    </div>
+</div>

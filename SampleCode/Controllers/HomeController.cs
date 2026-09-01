@@ -1,8 +1,8 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using MobileStoreBank.Models;
+using StoreMobile.Models;
 
-namespace MobileStoreBank.Controllers
+namespace StoreMobile.Controllers
 {
     public class HomeController : Controller
     {

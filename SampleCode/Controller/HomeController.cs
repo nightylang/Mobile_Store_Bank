@@ -1,22 +1,30 @@
+using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using MobileStoreBank.Models;
 
 namespace MobileStoreBank.Controllers
 {
     public class HomeController : Controller
     {
         public IActionResult Index() { 
-           return View();
+            return View();
         }
         
         public IActionResult About() { 
-           return View();
+            return View();
         }
         
         public IActionResult Product() {
-        RedirectToAction("Index", "Products");
+            RedirectToAction("Index", "Products");
         }        
         public IActionResult Bank() { 
-        RedirectToAction("Index", "Bank");
+            RedirectToAction("Index", "Bank");
+        }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

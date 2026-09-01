@@ -1,0 +1,38 @@
+@model IEnumerable<MobileStoreBank.Models.CrmTicket>
+@{
+    ViewData["Title"] = "CRM Pipeline Controls";
+}
+
+<div class="space-y-6">
+    <div class="border-b border-white/10 pb-4">
+        <h3 class="text-xl font-black text-white tracking-tight">CRM Resolution Command Center</h3>
+        <p class="text-xs text-slate-400">Real-time status analysis of cross-channel communication nodes.</p>
+    </div>
+
+    <div class="grid grid-cols-1 gap-4">
+        @foreach (var ticket in Model)
+        {
+            <div class="p-5 bg-white/[0.02] border border-white/10 rounded-xl flex flex-col sm:flex-row justify-between sm:items-center gap-4 transition-all hover:border-white/20">
+                <div class="space-y-2 max-w-2xl">
+                    <div class="flex items-center gap-3">
+                        <span class="text-2xs text-slate-500 font-mono tracking-wider block">ID: #00@ticket.Id</span>
+                        <span class="text-xs font-semibold text-indigo-400">@ticket.CustomerName</span>
+                    </div>
+                    <p class="text-sm font-medium text-white leading-relaxed">@ticket.IssueSummary</p>
+                </div>
+                
+                <div class="flex sm:flex-col items-end gap-2 text-2xs font-mono font-bold uppercase tracking-wider shrink-0">
+                    <!-- Priority Warning Badge Logic -->
+                    <span class="px-2 py-1 rounded border @(ticket.Priority == "Critical" || ticket.Priority == "High" ? "bg-red-500/10 text-red-400 border-red-500/20" : "bg-amber-500/10 text-amber-400 border-amber-500/20")">
+                        @ticket.Priority Priority
+                    </span>
+                    
+                    <!-- Status Progress Badge Logic -->
+                    <span class="px-2 py-1 rounded border @(ticket.Status == "Open" ? "bg-cyan-500/10 text-cyan-400 border-cyan-500/20" : "bg-slate-800 text-slate-400 border-white/5")">
+                        @ticket.Status
+                    </span>
+                </div>
+            </div>
+        }
+    </div>
+</div>

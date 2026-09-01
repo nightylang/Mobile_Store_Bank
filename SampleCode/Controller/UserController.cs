@@ -59,5 +59,17 @@ namespace MobileStoreBank.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction("Login");
         }
+        // Controllers/UserController.cs parameter optimization pattern snippet
+[HttpGet]
+public async Task<IActionResult> InspectNodeDetails(long id) // Explicit long parsing input parameter
+{
+    var targetNode = await _context.Users.AsNoTracking()
+        .FirstOrDefaultAsync(u => u.Id == id);
+
+    if (targetNode == null) return NotFound();
+
+    return View("Index", targetNode);
+}
+
     }
 }

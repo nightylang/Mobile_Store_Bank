@@ -11,6 +11,7 @@ An enterprise-grade, high-density financial asset node and inventory lifecycle m
 <a href="https://github.com/nightylang"><img title="Redis" src="https://img.shields.io/badge/Redis-8.10-red?style=for-the-badge&logo=Redis"></a>
 <a href="https://github.com/nightylang"><img title="Python" src="https://img.shields.io/badge/Python-3.14-yellow?style=for-the-badge&logo=Python"></a>
 <a href="https://github.com/nightylang"><img title="JavaScript" src="https://img.shields.io/badge/JavaScript-ES16-yellow?style=for-the-badge&logo=JavaScript"></a>
+<a href="https://github.com/nightylang"><img title="Tailwindcss" src="https://img.shields.io/badge/Tailwind css-4.0-bluesky?style=for-the-badge&logo=Tailwindcss"></a>
 
 ---
 
@@ -20,7 +21,8 @@ An enterprise-grade, high-density financial asset node and inventory lifecycle m
 | :--- | :--- | :--- |
 | **Backend Core Web Framework** | 🔷 C# 14 / Razor Syntax | Microsoft .NET 10.0 SDK [context.md] |
 | **Enterprise Persistence Engine**| 🗄️ T-SQL DDL & Script Blocks | Microsoft SQL Server 2022 [context.md] |
-| **Distributed Memory Cache** | ⚡ In-Memory Key-Value Stores | Redis v7.2-Alpine Build [context.md] |
+| **Distributed Memory Cache** | 
+In-Memory Key-Value Stores | Redis v7.2-Alpine Build [context.md] |
 | **Biometric Camera Edge Worker** | 🐍 Native Python Runtime | Python v3.11.x or higher [context.md] |
 | **Frontend Telemetry Visualization**| 🌐 Vanilla Javascript Modules | W3C Standard ECMA-262 / Proxy API [context.md] |
 

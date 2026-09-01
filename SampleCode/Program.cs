@@ -28,3 +28,11 @@ if (app.Environment.IsDevelopment())
         c.RoutePrefix = "api-docs"; // Re-routes interactive UI page from standard paths to http://localhost:5000/api-docs
     });
 }
+// Define this route registry inside builder.Services blocks
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+    // Points directly to the isolated Redis container network node defined in your Docker Compose file
+    options.Configuration = builder.Configuration.GetConnectionString("RedisCacheConnection") ?? "msb-redis-cache:6379";
+    options.InstanceName = "MSB_Ledger_";
+});
+

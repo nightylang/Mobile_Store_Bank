@@ -1,0 +1,53 @@
+@{
+    ViewData["Title"] = "Node Authority";
+    var profile = ViewBag.ProfileUser as MobileStoreBank.Models.User;
+}
+
+<div class="max-w-2xl mx-auto space-y-6">
+    <div class="border-b border-white/10 pb-4">
+        <h3 class="text-xl font-black text-white tracking-tight">Node Authority Configuration</h3>
+        <p class="text-xs text-slate-400">Cryptographic profile mapping parameters and permission boundary logs.</p>
+    </div>
+
+    <div class="bg-white/[0.02] border border-white/10 p-6 rounded-xl space-y-6 font-mono text-xs text-slate-400">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+                <span class="text-slate-500 block mb-1 uppercase tracking-wider text-[10px]">Assigned Identity Label</span>
+                <span class="text-sm text-white font-sans font-semibold">
+                    @(profile?.Username ?? "Unauthenticated Node")
+                </span>
+            </div>
+            <div>
+                <span class="text-slate-500 block mb-1 uppercase tracking-wider text-[10px]">Communication Endpoint Box</span>
+                <span class="text-sm text-slate-200 font-sans">
+                    @(profile?.Email ?? "null@storebank.com")
+                </span>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 border-t border-white/5 pt-4">
+            <div>
+                <span class="text-slate-500 block mb-1 uppercase tracking-wider text-[10px]">Privilege Clearance Hierarchy</span>
+                <span class="px-2 py-0.5 bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 rounded font-sans font-medium text-[11px]">
+                    @(profile?.Role ?? "Merchant")
+                </span>
+            </div>
+            <div>
+                <span class="text-slate-500 block mb-1 uppercase tracking-wider text-[10px]">Local Initialization Timestamp</span>
+                <span class="text-slate-300">
+                    @(profile?.CreatedAt.ToString("yyyy-MM-dd HH:mm:ss") ?? DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss")) UTC
+                </span>
+            </div>
+        </div>
+
+        <!-- Plaintext Channel Operational Warning Callout -->
+        <div class="border-t border-white/5 pt-4 bg-red-500/[0.02] -mx-6 -mb-6 p-6 rounded-b-xl border-t border-white/10 space-y-2">
+            <span class="text-amber-400 font-bold flex items-center gap-1.5 uppercase tracking-wider text-[10px]">
+                ⚠️ Unencrypted Channel Protocol Notice
+            </span>
+            <p class="text-slate-400 font-sans leading-relaxed text-[11px]">
+                This environment is explicitly configured to communicate over a cleartext HTTP network mesh infrastructure [context.md]. Do not transmit or expose real-world high-value financial access keys or private seed strings across these endpoints.
+            </p>
+        </div>
+    </div>
+</div>

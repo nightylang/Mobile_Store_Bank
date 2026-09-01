@@ -1,12 +1,12 @@
 # =========================================================================
-# MOBILE STORE BANK - WORKING PRODUCTION ENVIRONMENT ORCHESTRATOR
-# CORE ARCHITECTURE: .NET 10.0 PURE HTTP STACK + MICROSOFT SQL SERVER 2022
+# MOBILE STORE BANK - DEFINITIVE FULL INFRASTRUCTURE ORCHESTRATOR
+# ARCHITECTURE: .NET 10.0 HTTP + MS SQL SERVER 2022 CONTAINER NETWORK
 # =========================================================================
 
 version: '3.8'
 
 services:
-  # LAYER 1: ENTERPRISE DATA PERSISTENCE ENGINE (SQL SERVER)
+  # LAYER 1: ENTERPRISE DATA PERSISTENCE LAYER (SQL SERVER)
   msb-sql-engine:
     image: ://microsoft.com
     container_name: msb_production_sql_node
@@ -25,7 +25,7 @@ services:
       timeout: 5s
       retries: 5
 
-  # LAYER 2: HIGH-DENSITY APPLICATIVE SYSTEM (WEB CORE INSTANCE)
+  # LAYER 2: HIGH-DENSITY WEB RUNTIME ENGINE (MVC APPLICATION)
   msb-web-platform:
     image: mobilestorebank-web:latest
     container_name: msb_production_http_node
@@ -33,10 +33,10 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "5000:5000"
+      - "5000:5000" # Explicit cleartext port mapping hook
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
-      - ASPNETCORE_URLS=http://+:5000
+      - ASPNETCORE_URLS=http://+:5000 # Enforce pure cleartext HTTP routing limits
       - ConnectionStrings__DefaultConnection=Server=msb-sql-engine;Database=MobileStoreBankDb;User Id=sa;Password=SeniorDevPass_10.0_GA!;TrustServerCertificate=True;MultipleActiveResultSets=True;
     restart: always
     depends_on:
@@ -44,8 +44,9 @@ services:
         condition: service_healthy
 
 # =========================================================================
-# PERSISTENT SYSTEM VOLUMES DEFINITION
+# SECURE STORAGE BOUNDARY VOLUMES
 # =========================================================================
 volumes:
   msb-sql-data:
     driver: local
+    

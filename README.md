@@ -6,11 +6,11 @@ An enterprise-grade, high-density financial asset node and inventory lifecycle m
 
 ## 🛠️ Technology Stack Badges
 
-!<a href="https://github.com/nightylang"><img title=".NET Core" src="https://img.shields.io/badge/Copyring-2025-red?style=for-the-badge&logo=dotnetcore"></a>
-!<a href="https://github.com/nightylang"><img title="SQL Server" src="https://img.shields.io/badge/Copyring-2025-red?style=for-the-badge&logo=sqlserver"></a>
-!<a href="https://github.com/nightylang"><img title="Redis" src="https://img.shields.io/badge/Copyring-2025-red?style=for-the-badge&logo=redis"></a>
-!<a href="https://github.com/nightylang"><img title="Python" src="https://img.shields.io/badge/Copyring-2025-red?style=for-the-badge&logo=python"></a>
-!<a href="https://github.com/nightylang"><img title="Javascript" src="https://img.shields.io/badge/Copyring-2025-red?style=for-the-badge&logo=javascript"></a>
+<a href="https://github.com/nightylang"><img title=".NET Core" src="https://img.shields.io/badge/.NET Core-10.0-purple?style=for-the-badge&logo=DotNetCore"></a>
+<a href="https://github.com/nightylang"><img title="SQL Server" src="https://img.shields.io/badge/Sql Server-17.0-crimson?style=for-the-badge&logo=SqlServer"></a>
+<a href="https://github.com/nightylang"><img title="Redis" src="https://img.shields.io/badge/Redis-8.10-red?style=for-the-badge&logo=Redis"></a>
+<a href="https://github.com/nightylang"><img title="Python" src="https://img.shields.io/badge/Python-3.14-yellow?style=for-the-badge&logo=Python"></a>
+<a href="https://github.com/nightylang"><img title="JavaScript" src="https://img.shields.io/badge/JavaScript-ES16-yellow?style=for-the-badge&logo=JavaScript"></a>
 
 ---
 

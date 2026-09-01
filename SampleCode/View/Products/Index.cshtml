@@ -24,3 +24,19 @@
         }
     </div>
 </div>
+
+
+@section Scripts {
+    <script src="~/js/app-state.js" defer></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // 1. Initialize core system listener matrices to intercept buy clicks
+            InitializeProductActionListeners();
+            
+            // 2. Optional: Chain up standard balance background polling synchronization tracking
+            if (typeof InitializeLedgerPollingLoop === "function") {
+                InitializeLedgerPollingLoop(5000);
+            }
+        });
+    </script>
+}

@@ -1,0 +1,73 @@
+@model MobileStoreBank.Models.User
+@{
+    ViewData["Title"] = "Identity Node Profile";
+}
+
+<div class="max-w-2xl mx-auto space-y-6">
+    <!-- Header System -->
+    <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-4 border-b border-white/10 pb-4">
+        <div>
+            <h3 class="text-xl font-black text-white tracking-tight">Identity Node Profile</h3>
+            <p class="text-xs text-slate-400 font-mono">Profile Registry Context: Security.Identity.Node</p>
+        </div>
+        <div class="flex gap-2">
+            <a href="/Bank/Wallet" class="px-3 py-2 bg-indigo-600 hover:bg-indigo-500 text-xs font-semibold rounded-lg transition-all shadow-md shadow-indigo-600/20">
+                Access Financial Ledger &rarr;
+            </a>
+        </div>
+    </div>
+
+    <!-- Glassmorphic Profile Information Panel -->
+    <div class="bg-white/[0.02] border border-white/10 backdrop-blur-saas rounded-xl p-6 space-y-6 font-mono text-xs text-slate-400">
+        
+        <!-- Row 1: Core Identifiers -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div class="space-y-1">
+                <span class="text-slate-500 block uppercase tracking-wider text-[10px]">Node Unique Identity Key</span>
+                <span class="text-sm font-sans font-bold text-white">#00@Model?.Id</span>
+            </div>
+            <div class="space-y-1">
+                <span class="text-slate-500 block uppercase tracking-wider text-[10px]">Ident Token Label</span>
+                <span class="text-sm font-sans font-semibold text-slate-200">@Model?.Username</span>
+            </div>
+        </div>
+
+        <!-- Row 2: Communication & Security Bounds -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 border-t border-white/5 pt-4">
+            <div class="space-y-1">
+                <span class="text-slate-500 block uppercase tracking-wider text-[10px]">Network Communication Mailbox</span>
+                <span class="text-sm font-sans text-slate-300">@Model?.Email</span>
+            </div>
+            <div class="space-y-1">
+                <span class="text-slate-500 block uppercase tracking-wider text-[10px]">Privilege Clearance Authorization</span>
+                <div>
+                    <span class="px-2 py-0.5 text-[11px] bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 rounded font-sans font-medium">
+                        @Model?.Role
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Row 3: Timestamps -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 border-t border-white/5 pt-4">
+            <div class="space-y-1">
+                <span class="text-slate-500 block uppercase tracking-wider text-[10px]">Initialization Protocol Timestamp</span>
+                <span class="text-slate-300">@Model?.CreatedAt.ToString("yyyy-MM-dd HH:mm:ss") UTC</span>
+            </div>
+            <div class="space-y-1">
+                <span class="text-slate-500 block uppercase tracking-wider text-[10px]">Local Environment Pipeline</span>
+                <span class="text-amber-400 font-bold">Unencrypted Cleartext HTTP Mesh</span>
+            </div>
+        </div>
+
+        <!-- System Security Footnote -->
+        <div class="border-t border-white/5 pt-4 bg-white/[0.01] -mx-6 -mb-6 p-4 rounded-b-xl text-[11px] font-sans leading-relaxed text-slate-500 flex items-start gap-2">
+            <svg xmlns="http://w3.org" class="h-4 w-4 text-slate-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span>
+                Node telemetry active. This profile data is queried dynamically using non-tracking database streams directly from your local SQLite engine context.
+            </span>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,35 @@
+@model IEnumerable<MobileStoreBank.Data.Wallet>
+@{ ViewData["Title"] = "Liquidity Core"; }
+<div class="space-y-6">
+    <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-4 border-b border-white/10 pb-4">
+        <div>
+            <h3 class="text-xl font-black text-white">Liquidity Node Operations Platform</h3>
+            <p class="text-xs text-slate-400">High-fidelity display layer containing direct contextual wallet asset tracking pools.</p>
+        </div>
+        <div class="flex gap-2 font-medium">
+            <a href="/Bank/History" class="px-3 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg text-xs transition">Ledger History</a>
+            <a href="/Bank/Account" class="px-3 py-2 bg-indigo-600 hover:bg-indigo-500 text-xs rounded-lg transition">System Security Keys</a>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        @foreach(var wallet in Model) {
+            <div class="bg-white/[0.03] border border-white/10 p-5 rounded-xl space-y-4 relative overflow-hidden group shadow-lg">
+                <div class="flex justify-between items-center relative z-10">
+                    <span class="text-xs font-bold uppercase tracking-widest text-slate-400">@wallet.AssetName</span>
+                    <div class="w-2 h-2 bg-emerald-400 rounded-full shadow-lg shadow-emerald-400/50"></div>
+                </div>
+                <div class="space-y-1 relative z-10">
+                    <div class="text-3xl font-mono font-bold text-white tracking-tight">$@wallet.Balance.ToString("N2")</div>
+                    <div class="text-2xs font-mono text-slate-500 flex justify-between">
+                        <span>Transit Pending Clearance:</span>
+                        <span class="text-slate-400">+$@wallet.PendingClearance.ToString("N2")</span>
+                    </div>
+                </div>
+                <div class="text-2xs font-mono text-slate-600 border-t border-white/5 pt-2 relative z-10 truncate">
+                    Node Block Key Address: @wallet.WalletAddress
+                </div>
+            </div>
+        }
+    </div>
+</div>

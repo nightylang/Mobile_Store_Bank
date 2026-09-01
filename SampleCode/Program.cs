@@ -1,3 +1,32 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+
+var securitySecretKey = Encoding.UTF8.GetBytes("MOBILE-STORE-BANK-ENTERPRISE-JWT-CRITIAL-SIGNING-SECRET-TOKEN-10.0-GA");
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.RequireHttpsMetadata = false; // Required to permit tokens over unencrypted HTTP cleartext pipes
+    options.SaveToken = true;
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(securitySecretKey),
+        ValidateIssuer = false,
+        ValidateAudience = false,
+        ClockSkew = TimeSpan.Zero
+    };
+});
+
+// Place these pipeline hooks immediately below app.UseRouting() and above app.MapControllerRoute()
+app.UseAuthentication();
+app.UseAuthorization();
+
 builder.Services.AddEndpointsApiExplorer();
 // Inside builder.Services SwaggerGen configuration block update snippet
 builder.Services.AddSwaggerGen(c =>

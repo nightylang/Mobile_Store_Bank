@@ -1,16 +1,19 @@
 builder.Services.AddEndpointsApiExplorer();
+// Inside builder.Services SwaggerGen configuration block update snippet
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v2", new OpenApiInfo
     {
         Title = "Mobile Store Bank Open API Documentation Mesh",
         Version = "v2.4-stable",
-        Description = "Automated high-density ledger settlement endpoint specifications designed for cleartext HTTP microtransaction routing protocols."
+        Description = "Automated high-density ledger settlement and attendance tracking specs running on cleartext HTTP microtransaction routing protocols."
     });
 
-    // Mount the operation filter to append required header parameters on endpoints natively
+    // Mount both isolated specialized hardware header descriptors
     c.OperationFilter<SwaggerPosHeaderFilter>();
+    c.OperationFilter<SwaggerAttendanceHeaderFilter>();
 });
+
 
 // 2. Append these middleware blocks below app.UseRouting() space
 var app = builder.Build();

@@ -38,7 +38,7 @@
 ## 📂 Structural Routing Mapping Index
 The codebase structures map exactly to the following controller actions and corresponding Razor View templates, running asynchronously over the framework engine:
 
-| Core Controller Entity Class | Action Method真实 Implementations Matrix | Linked Front-End Razor Views (.cshtml) |
+| Core Controller Entity Class | Action Method Reality Implementations Matrix | Linked Front-End Razor Views (.cshtml) |
 | :--- | :--- | :--- |
 | **`HomeController`** | `Index`, `About`, `Product`, `Bank` | `Index`, `About`, `Product`, `Bank` |
 | **`AdminController`** | `Index`, `UserList`, `ProdList`, `CRM` | `Index`, `UserList`, `ProdList`, `CRM` |

@@ -1,4 +1,4 @@
-# 📂 System Project Manifest: Mobile Store Bank
+# 📂 Architectural Design Blueprint: context.md
 
 ## 🧑‍💻 Engineering Profile
 *   **Primary Major / Domain:** Software Development
@@ -12,7 +12,8 @@
 *   **Core Runtime Engine Platform:** Microsoft .NET 10.0 (Global Availability Build)
 *   **Design Layout System Framework:** Pure Decoupled CSS Styling Engine (Zero third-party library dependencies like Tailwind)
 *   **Database Management Persistence Layer:** Entity Framework Core 10
-*   **Database Engine target:** Microsoft SQL Server (Forced `decimal(18,2)` column configurations for all asset balance structures)
+*   **Database Engine Target:** Microsoft SQL Server 2022 (Forced `decimal(18,2)` column configurations for all asset balance structures)
+*   **In-Memory Caching Architecture:** Distributed Redis Engine Layer (7.2-Alpine Build Image)
 *   **Transport Routing Protocols:** Plaintext, unencrypted **HTTP exclusively** (`http://localhost:5000` via explicit binding layers; missing all forced SSL/TLS handshakes, HSTS headers, and HTTPS port forwarding redirects)
 *   **Containerization Layout Architecture:** Multi-stage `Dockerfile` and self-contained volume-persisted `docker-compose.yml` operational topology models.
 
@@ -29,7 +30,7 @@
 ---
 
 ## 🔐 Specialized Architectural Security Layers
-*   **Layer 1 (Live POS Webhook API):** Asymmetric endpoint framework (`api/ledger/settle`) for remote mobile point-of-sale terminal syncing utilizing custom validation headers (`X-POS-Terminal-ID` and `X-POS-Security-Token`) running on cleartext channels.
+*   **Layer 1 (Stateless JWT Authentication):** Signed Bearer Token validation filter system protecting transaction endpoints natively across local cleartext network channels.
 *   **Layer 2 (Tamper-Evident Ledger Protection):** HMAC-SHA256 Transaction Signature Chaining Interceptor built into the Entity Framework Core 10 `SaveChangesAsync` pipeline. Auto-hashes records to flag unauthorized raw SQL Server data manipulations directly on the Admin Dashboard panel view.
 
 ---
@@ -37,10 +38,11 @@
 ## 📂 Structural Routing Mapping Index
 The codebase structures map exactly to the following controller actions and corresponding Razor View templates, running asynchronously over the framework engine:
 
-| Core Controller Entity Class | Action Method Implementations Matrix |
-| :--- | :--- |
-| **`HomeController`** | `Index`, `About`, `Product`, `Bank` |
-| **`AdminController`** | `Index`, `UserList`, `ProdList`, `CRM` |
-| **`UserController`** | `Index` *(Profile Dashboard View)*, `Login`, `SignUp` |
-| **`ProductsController`** | `Index`, `CRUD`, `Supply`, `Category` |
-| **`BankController`** | `Index`, `Wallet`, `History`, `Account` |
+| Core Controller Entity Class | Action Method真实 Implementations Matrix | Linked Front-End Razor Views (.cshtml) |
+| :--- | :--- | :--- |
+| **`HomeController`** | `Index`, `About`, `Product`, `Bank` | `Index`, `About`, `Product`, `Bank` |
+| **`AdminController`** | `Index`, `UserList`, `ProdList`, `CRM` | `Index`, `UserList`, `ProdList`, `CRM` |
+| **`UserController`** | `Index`, `Login`, `SignUp` | `Index` *(Profile View)*, `Login`, `SignUp` |
+| **`ProductsController`** | `Index`, `CRUD`, `Supply`, `Category` | `Index`, `CRUD`, `Supply`, `Category` |
+| **`BankController`** | `Index`, `Wallet`, `History`, `Account` | `Index`, `Wallet`, `History`, `Account` |
+| **`AttendanceController`** | `Index`, `Scan`, `CheckIn`, `CheckOut` | `Index`, `Scan`, `CheckIn`, `CheckOut` |

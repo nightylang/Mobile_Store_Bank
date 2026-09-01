@@ -291,3 +291,58 @@
     stroke-linecap: round;
     stroke-linejoin: round;
 }
+/* ==========================================================================
+   PURE VECTOR GRAPH UTILITY TRACKER WRAPPERS
+   ========================================================================== */
+
+.msb-graph-glass-panel {
+    width: 100%;
+    background: var(--msb-glass-surface);
+    border: 1px solid var(--msb-glass-border);
+    backdrop-filter: var(--msb-glass-blur);
+    -webkit-backdrop-filter: var(--msb-glass-blur);
+    border-radius: 16px;
+    padding: 20px;
+    margin-top: 24px;
+    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7);
+    position: relative;
+    z-index: 10;
+}
+
+.msb-svg-viewport-wrapper {
+    width: 100%;
+    height: 140px;
+    margin-top: 16px;
+    background: rgba(10, 5, 20, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    border-radius: 12px;
+    overflow: hidden;
+    padding: 4px;
+}
+
+#msb-telemetry-svg {
+    width: 100%;
+    height: 100%;
+    transition: all 0.5s ease;
+}
+
+#msb-graph-polyline {
+    stroke: var(--msb-cyan-price);
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: none;
+    filter: drop-shadow(0px 4px 8px rgba(34, 211, 238, 0.4));
+    transition: points 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Glassmorphism Animation Overlay Flash Utility Pulse Override */
+@keyframes msbGlowPulse {
+    0% { border-color: var(--msb-glass-border); }
+    50% { border-color: rgba(34, 211, 238, 0.4); }
+    100% { border-color: var(--msb-glass-border); }
+}
+
+.animate-glow-pulse {
+    animation: msbGlowPulse 1s ease-in-out;
+   }

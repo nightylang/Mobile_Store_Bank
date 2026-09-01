@@ -1,0 +1,21 @@
+@model IEnumerable<MobileStoreBank.Data.TransactionRecord>
+@{ ViewData["Title"] = "Ledger Audit"; }
+<div class="space-y-6">
+    <h3 class="text-lg font-bold text-white">Immutable Central Ledger Stream Activity</h3>
+    <div class="space-y-3 font-mono text-xs">
+        @foreach(var entry in Model) {
+            <div class="p-3.5 bg-black/40 border border-white/10 rounded-xl flex flex-col sm:flex-row justify-between sm:items-center gap-4">
+                <div class="space-y-1">
+                    <span class="text-indigo-400 font-bold block">@entry.ReferenceNumber</span>
+                    <div class="text-slate-400 text-2xs">
+                        Route Flow: <span class="text-slate-300">@entry.SourceWallet</span> &rarr; <span class="text-slate-300">@entry.DestinationWallet</span>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <span class="text-sm font-bold text-emerald-400">+$@entry.Amount.ToString("N2")</span>
+                    <span class="text-2xs text-slate-500 block">@entry.Timestamp.ToString("yyyy-MM-dd HH:mm:ss") UTC</span>
+                </div>
+            </div>
+        }
+    </div>
+</div>

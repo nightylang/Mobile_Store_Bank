@@ -3,7 +3,7 @@
 # CI PIPELINE TARGET ENGINE: GITHUB ACTIONS PIPELINE RUNNER
 # =========================================================================
 
-name: Mobile Store Bank CI Engine
+name: Store Mobile CI Engine
 
 on:
   push:
